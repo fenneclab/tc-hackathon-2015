@@ -1,5 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 
 import ApiError from './util/error';
 import handler from './handler';
@@ -9,6 +10,8 @@ const server = express();
 server.set('port', (process.env.PORT || 3000));
 
 server.use(bodyParser.json());
+
+server.use(cors());
 
 server.use(handler);
 
