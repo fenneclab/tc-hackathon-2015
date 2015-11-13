@@ -1,0 +1,17 @@
+root: true
+
+env:
+  node   : true
+  es6    : true
+  browser: true
+
+extends:
+  "eslint:recommended"
+
+ecmaFeatures:
+  modules: true
+  blockBindings: true
+  arrowFunctions: true
+
+rules:
+  no-console: 0

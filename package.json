@@ -1,0 +1,28 @@
+{
+  "name": "tc-hackathon-2015",
+  "version": "1.0.0",
+  "description": "tc-hackathon-2015",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fenneclab/tc-hackathon-2015.git"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/fenneclab/tc-hackathon-2015/issues"
+  },
+  "homepage": "https://github.com/fenneclab/tc-hackathon-2015#readme",
+  "devDependencies": {
+    "eslint": "^1.9.0"
+  },
+  "dependencies": {
+    "babel-core": "^6.1.20",
+    "babel-preset-es2015": "^6.1.18",
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3"
+  }
+}
