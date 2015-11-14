@@ -1,6 +1,32 @@
+import _ from 'lodash';
 import {Router} from 'express';
+import Promise from 'bluebird';
+
+import google from './util/google';
+import facebook from './util/facebook';
+import watoson from './util/watoson';
 
 const router = Router();
+
+// router.get('/analyze', (req, res, next) => {
+//   return facebook.getFeed().then(feed => {
+//     return feed.data.map(e => {
+//       const messages = [];
+//       messages.push(e.message);
+//       return messages;
+//     });
+//   }).then(messages => {
+//     const filtered = _.flatten(messages).filter(e => !!e);
+//     return Promise.map(filtered, google.translate, {concurrency: 10});
+//   }).then((translateds) => {
+//     console.log('count: ' + translateds.reduce((prev, e) => {
+//       return _.words(e).length + prev;
+//     }, 0));
+//     return watoson.personalityInsights(translateds.join('\n'));
+//   }).then(result => {
+//     return res.sendStatus(200);
+//   }).catch(err => next(err));
+// });
 
 router.get('/bears', (req, res) => {
   return res.status(200).json({

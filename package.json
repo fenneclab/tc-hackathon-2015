@@ -7,11 +7,12 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-init": "mkdirp build",
     "build:html": "cp app/*.html ./build",
-    "build:js": "watchify -v app/js/app.js -t [ babelify --presets [ es2015 ] ] -o build/app.js",
+    "build:js": "gulp build:js",
     "build": "npm-run-all -s build-init -p build:*",
+    "watch-and-build:js": "gulp watch:js",
     "sync": "browser-sync start --reload-delay 500 --files 'build/**/*' --server build --port 5000",
-    "api": "nodemon server/ --watch ./server",
-    "start": "npm-run-all -p build -p sync api"
+    "api": "NODE_CONFIG_DIR='./server/config' nodemon server/ --watch ./server",
+    "start": "npm-run-all -p sync api watch-and-build:js"
   },
   "repository": {
     "type": "git",
@@ -35,14 +36,20 @@
     "nodemon": "^1.8.1",
     "npm-run-all": "^1.2.13",
     "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0"
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.6.0"
   },
   "dependencies": {
     "babel-core": "^6.1.20",
     "babel-preset-es2015": "^6.1.18",
+    "bluebird": "^3.0.5",
     "body-parser": "^1.14.1",
+    "config": "^1.16.0",
     "cors": "^2.7.1",
     "express": "^4.13.3",
-    "mithril": "^0.2.0"
+    "googleapis": "^2.1.6",
+    "lodash": "^3.10.1",
+    "mithril": "^0.2.0",
+    "watson-developer-cloud": "^0.10.6"
   }
 }
