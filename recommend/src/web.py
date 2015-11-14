@@ -11,11 +11,9 @@ app = Flask(__name__)
 CORS(app)
 
 # index にアクセスしたときの処理
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/v1/', methods=['GET'])
 def index():
-    
-    
-    
+    user_json = request['user']
     result = {'data': detections}
     return jsonify(result)
 
