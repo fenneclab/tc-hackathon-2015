@@ -1,35 +1,63 @@
-import m from 'mithril';
-//namespace
+import $ from 'jquery';
+// import pjax from 'simple-pjax';
+
 const app = {};
+app.model = {};
+app.view = {};
+app.ctrl = {};
+app.data = {};
+app.data.result = {};
+app.data.isShowingResult = false;
 
-//model
-app.BearList = () => {
-  return m.request({method: "GET", url: "http://localhost:3000/bears"});
-};
 
-//controller
-app.controller = () => {
-  const bears = app.BearList();
-  return {
-    bears: bears,
-    rotate: () => {
-      bears().push(bears().shift());
-    }
+$(function(){
+  // $("body").text("yo");
+
+  /*
+  * (1)通信
+  */
+  app.model.callAPI = (param1) => {
+    //pram1 = bears
+    var url = "http://localhost:3000/" + param1
+    $.ajax({
+      url: url,
+      type: "GET",
+      dataType: "json",
+      cache: false,
+      success: (msg) => {
+        console.log(msg);
+        app.data.result = msg;
+        app.view.writeResult();
+      }
+    });
   }
-};
 
-//view
-app.view = ctrl => {
-  console.log(ctrl.bears());
-  return [
-    ctrl.bears().bears.map(bear => {
-      return m('div', [
-        m('div', `id: ${bear.id}`),
-        m('div', `name: ${bear.name}`)
-      ]);
-    })
-  ];
-};
+  /*
+  * (2)描画
+  */
+  app.view.writeResult = () => {
+    // console.log(app.data.result);
+    // console.log(app.data.result.bears);
 
-//initialize
-m.mount(document.getElementById('body'), app);
+    for (var i=0; i<app.data.result.bears.length; i++) {
+      var data = app.data.result.bears[i];
+      console.log(data);
+      $("#result").append("<div>"+ data.id + "</div>");
+      $("#result").append("<div>"+ data.name + "</div>");
+    }
+    // $("#result").html(app.data.result);
+  }
+
+  /*
+  * (3)DOM Event
+  */
+  $(".js--submit").on("click", () => {
+    var userId = $(".js--input").attr("value");
+    app.model.callAPI(userId);
+  });
+
+  /*
+  * (4)Pjax
+  */
+
+});
