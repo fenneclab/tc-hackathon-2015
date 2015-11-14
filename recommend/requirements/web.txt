@@ -1,0 +1,4 @@
+Flask==0.10.1
+Flask-Cors==2.1.0
+redis
+lshash==0.0.4dev

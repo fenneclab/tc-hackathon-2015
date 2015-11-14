@@ -1,0 +1,15 @@
+batch:
+  build: .
+  command: /bin/bash
+  dockerfile: Dockerfile
+  working_dir: /var/www
+  volumes:
+    - .:/var/www
+  links:
+    - redis
+  environment:
+    - REDIS_HOST=redis
+    - REDIS_PORT=6379
+
+redis:
+  image: redis
