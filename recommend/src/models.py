@@ -1,16 +1,24 @@
 # -*- coding: utf-8 -*-
 import json
+import pickle
 
 import numpy as np
 
+
 class User:
     def __init__(self, user_dic):
+        self.dict = user_dic
+        self.id = user_dic['meta']['name']
         self.name = user_dic['meta']['name']
         self.vector = self.data_to_vec(user_dic['data'])
         self.vector_dim = self.vector.shape[0]
 
     def __repr__(self):
         return "User name:{0} vector:{1}".format(self.name, self.vector)
+
+    @property
+    def json(self):
+        return json.dumps(self.dict)
 
     @property
     def meta(self):
@@ -22,7 +30,10 @@ class User:
     def meta_json(self):
         return json.dumps(self.meta)
 
-    
+    @property
+    def vectour_pickled(self):
+        return pickle.dumps(self.vector)
+
     def data_to_vec(self, data):
         """
         性格と確率の組み合わせdictを
@@ -36,13 +47,13 @@ class User:
         
         """
         vec_list = []
-        print data
+        # print data
         for personality, prob in data.iteritems():
             vec_list.append(prob)
 
         vec = np.array(vec_list)
-        print vec
-        print vec.shape[0]
+        # print vec
+        # print vec.shape[0]
 
         return vec
             
