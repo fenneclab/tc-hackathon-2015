@@ -7,8 +7,38 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <title>すごいマッチング</title>
   <link rel="stylesheet" href="/app.css">
+  <script src="https://sdk.amazonaws.com/js/aws-sdk-2.2.17.min.js"></script>
+  <script type="text/javascript" src="apiGateway-js-sdk/lib/axios/dist/axios.standalone.js"></script>
+  <script type="text/javascript" src="apiGateway-js-sdk/lib/CryptoJS/rollups/hmac-sha256.js"></script>
+  <script type="text/javascript" src="apiGateway-js-sdk/lib/CryptoJS/rollups/sha256.js"></script>
+  <script type="text/javascript" src="apiGateway-js-sdk/lib/CryptoJS/components/hmac.js"></script>
+  <script type="text/javascript" src="apiGateway-js-sdk/lib/CryptoJS/components/enc-base64.js"></script>
+  <script type="text/javascript" src="apiGateway-js-sdk/lib/moment/moment.js"></script>
+  <script type="text/javascript" src="apiGateway-js-sdk/lib/url-template/url-template.js"></script>
+  <script type="text/javascript" src="apiGateway-js-sdk/lib/apiGatewayCore/sigV4Client.js"></script>
+  <script type="text/javascript" src="apiGateway-js-sdk/lib/apiGatewayCore/apiGatewayClient.js"></script>
+  <script type="text/javascript" src="apiGateway-js-sdk/lib/apiGatewayCore/simpleHttpClient.js"></script>
+  <script type="text/javascript" src="apiGateway-js-sdk/lib/apiGatewayCore/utils.js"></script>
+  <script type="text/javascript" src="apiGateway-js-sdk/apigClient.js"></script>
 </head>
 <body id="body" class="active--index">
+  <script>
+    // todo: use es2015
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1668522033362849',
+        xfbml      : true,
+        version    : 'v2.5'
+      });
+    };
+    (function(d, s, id){
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {return;}
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  </script>
   <div class="page page--index page--show">
     <h1 class="title--main"><img src="imgs/login_Logo@2x.png" width="300"></h1>
     <img class="img--topLogo" src="imgs/login_love_img@2x.png" width="100%">

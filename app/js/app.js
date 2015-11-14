@@ -36,29 +36,57 @@ $(function(){
   /*
   * (1)通信
   */
-  app.model.callAPI = (param1) => {
+  app.model.login = (param1) => {
     //pram1 = bears
-    var url = "http://localhost:3000/analyze"
-    $.ajax({
-      url: url,
-      type: "GET",
-      dataType: "json",
-      cache: false,
-      success: (msg) => {
-        // console.log(msg);
-        app.data.result = msg;
-        // $.pjax({
-        //   area: ".page",
-        //   callbacks: {
-        //     update: {
-        //       complete :app.view.writeResult()
-        //     }
-        //   }
-        // });
-        // location.href = "result.html";
+    FB.login(function(response) {
+      if (response.authResponse) {
+        AWS.config.region = 'ap-northeast-1';
+        AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+          IdentityPoolId: 'ap-northeast-1:0f6f04d8-73c8-486a-8e31-8eaea50ee3a2',
+          Logins: {
+            'graph.facebook.com': response.authResponse.accessToken
+          }
+        });
 
-        app.view.writeResult()
+        console.log('You are now logged in.');
 
+        var cognitoidentity = new AWS.CognitoIdentity();
+        cognitoidentity.getId({
+          IdentityPoolId: 'ap-northeast-1:0f6f04d8-73c8-486a-8e31-8eaea50ee3a2',
+          Logins: {
+            'graph.facebook.com': response.authResponse.accessToken
+          }
+        }, function(err, data) {
+          if (err) {
+            console.error(err);
+          }
+          cognitoidentity.getCredentialsForIdentity({
+            IdentityId: data.IdentityId,
+            Logins: {
+              'graph.facebook.com': response.authResponse.accessToken
+            }
+          }, function(err, data) {
+            if (err) {
+              console.error(err);
+            }
+            var apigClient = apigClientFactory.newClient({
+              accessKey   : data.Credentials.AccessKeyId,
+              secretKey   : data.Credentials.SecretKey,
+              sessionToken: data.Credentials.SessionToken,
+              region      : 'ap-northeast-1'
+            });
+            console.log(response.authResponse.accessToken);
+            apigClient.analyzeGet({"fb_token": response.authResponse.accessToken}, {}).then(function(result) {
+              app.data.result = result.data;
+              app.view.writeResult()
+            }).catch(function(err) {
+              console.error(err);
+            });
+          });
+        });
+
+      } else {
+        console.log('There was a problem logging you in.');
       }
     });
   }
@@ -102,8 +130,7 @@ $(function(){
   * (3)DOM Event
   */
   $(".js--submit").on("click", () => {
-    var userId = $(".js--input").attr("value");
-    app.model.callAPI(userId);
+    app.model.login();
   });
 
   /*
