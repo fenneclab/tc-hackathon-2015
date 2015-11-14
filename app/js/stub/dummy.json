@@ -1,0 +1,34 @@
+[
+    {
+        "id": 1,
+        "name": "さや",
+        "age": 24,
+        "job": "港区,保育士",
+        "image": "https://s3-ap-northeast-1.amazonaws.com/tc-hackathon-2015-kari/1.jpg",
+        "matched": 80
+    },
+    {
+        "id": 2,
+        "name": "しずか",
+        "age": 21,
+        "job": "江東区,学生",
+        "image": "https://s3-ap-northeast-1.amazonaws.com/tc-hackathon-2015-kari/2.jpg",
+        "matched": 79
+    },
+    {
+        "id": 3,
+        "name": "メロン",
+        "age": 20,
+        "job": "目黒区,学生",
+        "image": "https://s3-ap-northeast-1.amazonaws.com/tc-hackathon-2015-kari/3.jpg",
+        "matched": 76
+    },
+    {
+        "id": 4,
+        "name": "みほ",
+        "age": 22,
+        "job": "港区,会社員",
+        "image": "https://s3-ap-northeast-1.amazonaws.com/tc-hackathon-2015-kari/4.jpg",
+        "matched": 70
+    }
+]

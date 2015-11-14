@@ -91,6 +91,22 @@ $(function(){
     });
   }
 
+  app.model.loginMock = (param1) => {
+    //pram1 = bears
+
+    var url = "/stub/dummy.json"
+    $.ajax({
+      url: url,
+      type: "GET",
+      dataType: "json",
+      cache: false,
+      success: (msg) => {
+        app.data.result = msg;
+        app.view.writeResult()
+      }
+    });
+  }
+
 
   /*
   * 描画: 結果取得
@@ -102,11 +118,12 @@ $(function(){
     for (var i=0; i<app.data.result.length; i++) {
       var data = app.data.result[i];
       // $("#result").append("<div class='profile--id'>"+ data.id + "</div>");
-      var html = "<div class='profile'>";
+      var html = "<div class='profile'><div class='profile__inner'>";
       html += "<img class='profile__img' src='"+ data.image + "'/>";
-      html += "<div class='profile__match'>マッチ度："+ data.matched + "</div>";
-      html += "<divclass='profile__name'>"+ data.name + "(" + data.age+ ")</div>";
-      html += "</div>"
+      // html += "<div class='profile__match'>"+ data.matched + "</div>";
+      html += "<div class='profile__name'>"+ data.name + "(" + data.age+ ")</div>";
+      html += "<div class='profile__job'>"+ data.job + "</div>";
+      html += "</div></div>"
       $("#result").append(html);
       // $("#result").append("<divclass='profile--age'>年齢："+ data.age + "</div>");
     }
@@ -130,7 +147,8 @@ $(function(){
   * (3)DOM Event
   */
   $(".js--submit").on("click", () => {
-    app.model.login();
+    // app.model.login();
+    app.model.loginMock();
   });
 
   /*
