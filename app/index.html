@@ -3,21 +3,32 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,user-scalable=0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
   <title>すごいマッチング</title>
   <link rel="stylesheet" href="/app.css">
 </head>
 <body id="body" class="active--index">
-  <div id="page--index">
-    <h1>スキコレ</h1>
-    <h2>〜Like Collection〜</h2>
-    <input type="text" placeholder="ユーザーID" value="bears" class="js--input">
-    <button type="submit" class="js--submit">Facebookで始める</button>
-    <div id="result"></div>
+  <div class="page page--index page--show">
+    <h1 class="title--main"><img src="imgs/login_Logo@2x.png" width="300"></h1>
+    <img class="img--topLogo" src="imgs/login_love_img@2x.png" width="100%">
+    <p class="text--top">恋愛マッチング人口知能コレスキーが<br/>
+      相性の良さそうな異性を毎日4人おすすめ。<br/>
+      使えば使うほどコレスキーは<br/>
+      あなたの好みを学習していきます。
+    </p>
+    <button type="submit" class="js--submit btn btn--facebook">Facebookで始める</button>
+    <p class="text--alreadyLogin__wrap">
+      <a class="text--alreadyLogin">ログイン済みの方はこちら</a>
+    </p>
   </div>
-  <div id="page--result">
+  <div class="page page--result">
     <h2>今日マッチした</h2>
+    <!--結果表示-->
     <div id="result"></div>
   </div>
+  <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+  <!-- <script src="/pjax.js"></script> -->
   <script src="/app.js"></script>
 </body>
 </html>
