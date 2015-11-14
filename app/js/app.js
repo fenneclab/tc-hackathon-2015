@@ -32,4 +32,4 @@ app.view = ctrl => {
 };
 
 //initialize
-m.mount(document.getElementById('example'), app);
+m.mount(document.getElementById('body'), app);
