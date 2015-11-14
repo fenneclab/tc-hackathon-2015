@@ -30,7 +30,16 @@ function watch() {
   return compile(true);
 };
 
+
 gulp.task('build', function() { return compile(); });
 gulp.task('watch', function() { return watch(); });
-
-gulp.task('default', ['watch']);
+gulp.task('copy', function() {
+  gulp.watch('app/index.html', ['html']);
+});
+gulp.task('sass', function() {
+});
+gulp.task('html', function() {
+  gulp.src('app/index.html')
+    .pipe(gulp.dest('./build'));
+});
+gulp.task('default', ['watch', 'copy']);
