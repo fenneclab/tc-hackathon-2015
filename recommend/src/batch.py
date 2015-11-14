@@ -13,7 +13,7 @@ WORK_DIR = '/var/www'
 REDIS_HOST = os.environ.get('REDIS_PORT_6379_TCP_ADDR')
 REDIS_PORT = 6379
 
-db = redis.Redis(host=REDIS_HOST, port=REDIS_PORT,)
+redis_db = redis.Redis(host=REDIS_HOST, port=REDIS_PORT,)
 
 
 def example_json_results():
@@ -23,20 +23,25 @@ def example_json_results():
     return results
 
 
-def make_db(users_dict):
+def make_redis_db(users_data):
     users = []
 
-    for user_dict in users_dict:
-        u = User(user_dict)
+    for i, user_dict in enumerate(users_data):
+        print i
+        id = i + 1
+        print user_dict
+        print "*" * 40
+        u = User(user_dict, id)
         users.append(u)
 
     for user in users:
         # print user
-        db.set(user.id, user.json)
+        redis_db.set(user.id, user.json)
 
 
 if __name__ == "__main__":
+    redis_db.flushall()
     json_results = example_json_results()
     results = json.loads(json_results)
-    users_dict = results[u'results']
-    make_db(users_dict)
+    users_data = results[u'results']
+    make_redis_db(users_data)
