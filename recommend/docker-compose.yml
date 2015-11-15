@@ -1,7 +1,7 @@
 batch:
   build: .
   command: python src/batch.py
-  dockerfile: Dockerfile
+  dockerfile: batch.Dockerfile
   working_dir: /var/www
   volumes:
     - .:/var/www

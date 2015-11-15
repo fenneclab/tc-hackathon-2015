@@ -1,0 +1,89 @@
+{
+  "Big 5": {
+    "Extraversion": {
+      "percentage": 1,
+      "details": {
+        "Openness": {
+          "percentage": 0.19921928309125145
+        },
+        "Conscientiousness": {
+          "percentage": 0.8553547136978406
+        },
+        "Extraversion": {
+          "percentage": 1
+        },
+        "Agreeableness": {
+          "percentage": 1
+        },
+        "Emotional range": {
+          "percentage": 0.07137672842739434
+        }
+      }
+    }
+  },
+  "Needs": {
+    "Self-expression": {
+      "percentage": 0.9868202723396299,
+      "details": {
+        "Challenge": {
+          "percentage": 0.013992373940051078
+        },
+        "Closeness": {
+          "percentage": 0.15495976941262563
+        },
+        "Curiosity": {
+          "percentage": 0.05817136382943038
+        },
+        "Excitement": {
+          "percentage": 0.6818262452447816
+        },
+        "Harmony": {
+          "percentage": 0.03884093763512811
+        },
+        "Ideal": {
+          "percentage": 0.30712482652452194
+        },
+        "Liberty": {
+          "percentage": 0.6813200344073514
+        },
+        "Love": {
+          "percentage": 0.13596649460200655
+        },
+        "Practicality": {
+          "percentage": 0.09433430535525338
+        },
+        "Self-expression": {
+          "percentage": 0.9868202723396299
+        },
+        "Stability": {
+          "percentage": 0.09539634992361426
+        },
+        "Structure": {
+          "percentage": 0.037950887617173405
+        }
+      }
+    }
+  },
+  "Values": {
+    "Hedonism": {
+      "percentage": 0.9895308876537194,
+      "details": {
+        "Conservation": {
+          "percentage": 0.06335145128826053
+        },
+        "Openness to change": {
+          "percentage": 0.9836972281989851
+        },
+        "Hedonism": {
+          "percentage": 0.9895308876537194
+        },
+        "Self-enhancement": {
+          "percentage": 0.11708343128231556
+        },
+        "Self-transcendence": {
+          "percentage": 0.3497417652893247
+        }
+      }
+    }
+  }
+}

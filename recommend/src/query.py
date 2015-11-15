@@ -1,25 +1,18 @@
 # -*- coding: utf-8 -*-
 import json
-
+import os 
 # 3rd party
 from lshash import LSHash
 
 #
-from db import recommend_db
+from db import user_db
 from models import User
 
 WORK_DIR = '/var/www'
 
-LSH_HASH_SIZE = 10   # ハッシュを何bitにするのか
+LSH_HASH_SIZE = 1  # ハッシュを何bitにするのか
 LSH_INPUT_DIM = 52  # 入力ベクトルの次元数
-LSH_NUM_HASHTABLES = 100  #
-# LSH_STORAGE_CONF = {
-#     "redis": {
-#         "host": REDIS_HOST,
-#         "port": REDIS_PORT,
-#         "db": 0,
-#     }
-# }
+LSH_NUM_HASHTABLES = 1  #
 
 
 def make_lsh_engine(dim):
@@ -34,17 +27,18 @@ def make_lsh_engine(dim):
 
 
 def make_lsh_model():
-    keys = recommend_db.keys('*')
+    keys = user_db.keys('*')
     users = []
     for id in keys:
-        print id
-        user_json = recommend_db.get(id)
+        print 'id'
+        user_json = user_db.get(id)
         user = User(json.loads(user_json), id)
         users.append(user)
 
     dim = users[0].vector_dim
     lsh_engine = make_lsh_engine(dim)
 
+    print users
     for user in users:
         lsh_engine.index(user.vector, user.id)
 
@@ -56,9 +50,9 @@ def query(user_dict):
     lsh_engine = make_lsh_model()
     candidates = lsh_engine.query(user.vector)
     results = []
-    print candidates
+    # print candidates
     for candidate in candidates:
-        # print candidate
+        print candidate
         (vector, id), distance = candidate
         # print vector
         # print meta_json

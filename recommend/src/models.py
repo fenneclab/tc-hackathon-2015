@@ -14,21 +14,11 @@ class User:
         self.vector_dim = self.vector.shape[0]
 
     def __repr__(self):
-        return "User name:{0} vector:{1}".format(self.name, self.vector)
+        return "User id:{0} vector:{1}".format(self.id, self.vector)
 
     @property
     def json(self):
         return json.dumps(self.data)
-
-    @property
-    def meta(self):
-        return {
-            'name': self.name,
-        }
-
-    @property
-    def meta_json(self):
-        return json.dumps(self.meta)
 
     @property
     def vectour_pickled(self):
@@ -91,10 +81,10 @@ class User:
                     if category_key == VALUES_KEY:
                         values[children_key] = children_percentage
 
-        print flat
-        print big5
-        print needs
-        print values
+        # print flat
+        # print big5
+        # print needs
+        # print values
         return flat, big5, needs, values
 
     def flat_to_row_vec(self, flat):

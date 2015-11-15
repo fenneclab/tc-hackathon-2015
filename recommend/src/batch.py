@@ -5,12 +5,35 @@ import pickle
 
 # 3rd party
 import redis
+from lshash import LSHash
 
 #
-from db import recommend_db
+from db import REDIS_RECOMMEND_HOST, REDIS_RECOMMEND_PORT, recommend_db, user_db
 from models import User
 
 WORK_DIR = '/var/www'
+
+LSH_HASH_SIZE = 10   # ハッシュを何bitにするのか
+LSH_INPUT_DIM = 52  # 入力ベクトルの次元数
+LSH_NUM_HASHTABLES = 1  #
+LSH_STORAGE_CONF = {
+    "redis": {
+        "host": REDIS_RECOMMEND_HOST,
+        "port": REDIS_RECOMMEND_PORT,
+        # "db": 0,
+    }
+}
+
+
+def make_lsh_engine(dim):
+    lsh_engine = LSHash(
+        LSH_HASH_SIZE,
+        dim,
+        LSH_NUM_HASHTABLES,
+        storage_config=LSH_STORAGE_CONF,
+    )
+
+    return lsh_engine
 
 
 def example_json_results():
@@ -38,6 +61,7 @@ def make_recommend_db(users_data):
 
 if __name__ == "__main__":
     recommend_db.flushall()
+
     json_results = example_json_results()
     results = json.loads(json_results)
     users_data = results[u'results']

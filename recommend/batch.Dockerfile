@@ -15,4 +15,4 @@ ADD requirements /var/tmp/requirements
 
 RUN pip install -r /var/tmp/requirements/batch.txt
 
-# RUN pip install -r /var/tmp/requirements/web.txt
+ADD sample /var/tmp/sample
