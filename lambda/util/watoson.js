@@ -2,8 +2,9 @@ import watson from 'watson-developer-cloud';
 import Promise from 'bluebird';
 import config from 'config';
 import _ from 'lodash';
+import dummy from './dummy';
 
-const personalityInsightsApi = watson.personality_insights(config.default.ibm.personalityInsights.credentials);
+const personalityInsightsApi = watson.personality_insights(config.ibm.personalityInsights.credentials);
 
 /**
  * @return {{
@@ -117,10 +118,11 @@ function parseResponse(response) {
 
 export default {
   personalityInsights(text) {
+    // return Promise.resolve(dummy);
     return new Promise((resolve, reject) => {
       personalityInsightsApi.profile({
         text,
-        url: config.default.ibm.personalityInsights.url
+        url: config.ibm.personalityInsights.url
       }, (err, result) => {
         if (err) {
           return reject(err);

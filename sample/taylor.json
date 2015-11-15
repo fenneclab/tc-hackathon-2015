@@ -1,0 +1,89 @@
+{
+  "Big 5": {
+    "Agreeableness": {
+      "percentage": 0.9720119794939562,
+      "details": {
+        "Openness": {
+          "percentage": 0.12568578530018043
+        },
+        "Conscientiousness": {
+          "percentage": 0.10490770791297895
+        },
+        "Extraversion": {
+          "percentage": 0.9094921274183235
+        },
+        "Agreeableness": {
+          "percentage": 0.9720119794939562
+        },
+        "Emotional range": {
+          "percentage": 0.892154573533966
+        }
+      }
+    }
+  },
+  "Needs": {
+    "Practicality": {
+      "percentage": 0.9734118167838153,
+      "details": {
+        "Challenge": {
+          "percentage": 0.6697301596400914
+        },
+        "Closeness": {
+          "percentage": 0.6311177562358455
+        },
+        "Curiosity": {
+          "percentage": 0.5898926453053432
+        },
+        "Excitement": {
+          "percentage": 0.5636847072348335
+        },
+        "Harmony": {
+          "percentage": 0.9439069477612575
+        },
+        "Ideal": {
+          "percentage": 0.2136258725388743
+        },
+        "Liberty": {
+          "percentage": 0.7059615765528375
+        },
+        "Love": {
+          "percentage": 0.9082464857294787
+        },
+        "Practicality": {
+          "percentage": 0.9734118167838153
+        },
+        "Self-expression": {
+          "percentage": 0.21752735359728276
+        },
+        "Stability": {
+          "percentage": 0.39931930161109414
+        },
+        "Structure": {
+          "percentage": 0.17061351392476004
+        }
+      }
+    }
+  },
+  "Values": {
+    "Self-transcendence": {
+      "percentage": 0.9812051158011177,
+      "details": {
+        "Conservation": {
+          "percentage": 0.17027145129344193
+        },
+        "Openness to change": {
+          "percentage": 0.8211741020324411
+        },
+        "Hedonism": {
+          "percentage": 0.39019720323308693
+        },
+        "Self-enhancement": {
+          "percentage": 0.1289133771244246
+        },
+        "Self-transcendence": {
+          "percentage": 0.9812051158011177
+        }
+      }
+    }
+  }
+}
