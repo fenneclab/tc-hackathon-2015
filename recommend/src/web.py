@@ -46,6 +46,9 @@ def index():
         response = {'result': result}
         return jsonify(response)
 
+    response = {'error': '何かがおかしいです。'}
+    print jsonify(response)
+
 if __name__ == '__main__':
     app.debug = DEBUG
     app.run(host='0.0.0.0', port=PORT)
