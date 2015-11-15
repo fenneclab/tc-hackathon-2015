@@ -184,7 +184,7 @@ $(function(){
       html += "<img class='profile__img' src='"+ data.image + "'/>";
       // html += "<div class='profile__match'>"+ data.matched + "</div>";
       html += "<div class='profile__name'>"+ data.name + "(" + data.age+ ")</div>";
-      html += "<div class='profile__job'>"+ data.job + "</div>";
+      html += "<div class='profile__job'>"+ data.address + "," + data.job + "</div>";
       html += "</div></div>"
       $("#result").append(html);
     }
@@ -207,9 +207,34 @@ $(function(){
   app.view.setDetail = (targetUser) => {
     $(".detail__img").attr("src",targetUser.image);
     $(".detail__name").text(targetUser.name + "(" + targetUser.age + ")");
-    $(".detail__job").text(targetUser.job);
+    $(".detail__job").text(targetUser.address + ","+ targetUser.job);
+    $(".detail__matchHearts").removeClass(function(index, className) {
+    return (className.match(/\bdetail__matchHearts--\S+/g) || []).join(' ');
+});
+    if(targetUser.matched < 10){
+      $(".detail__matchHearts").addClass("detail__matchHearts--10");
+    }else if(targetUser.matched < 20){
+      $(".detail__matchHearts").addClass("detail__matchHearts--20");
+    }else if(targetUser.matched < 30){
+      $(".detail__matchHearts").addClass("detail__matchHearts--30");
+    }else if(targetUser.matched < 40){
+      $(".detail__matchHearts").addClass("detail__matchHearts--40");
+    }else if(targetUser.matched < 50){
+      $(".detail__matchHearts").addClass("detail__matchHearts--50");
+    }else if(targetUser.matched < 60){
+      $(".detail__matchHearts").addClass("detail__matchHearts--60");
+    }else if(targetUser.matched < 70){
+      $(".detail__matchHearts").addClass("detail__matchHearts--70");
+    }else if(targetUser.matched < 80){
+      $(".detail__matchHearts").addClass("detail__matchHearts--80");
+    }else if(targetUser.matched < 90){
+      $(".detail__matchHearts").addClass("detail__matchHearts--90");
+    }else{
+      $(".detail__matchHearts").addClass("detail__matchHearts--100");
+    }
     $(".js--d--match").text(targetUser.matched);
-    $(".detail__type").text("聞き上手で頑張り屋さん。本当はちょっと冒険してみたい…");
+
+    $(".detail__type").html(targetUser.AIType[0] + "。<br>本当はもっと" + targetUser.AIType[1] + "。");
     app.data.activeDetailId = targetUser.id;
     app.view.changePage({}, $pageDetail);
   }
@@ -223,7 +248,7 @@ $(function(){
         html += "<img class='profile__img' src='"+ data.image + "'/>";
         // html += "<div class='profile__match'>"+ data.matched + "</div>";
         html += "<div class='profile__name'>"+ data.name + "(" + data.age+ ")</div>";
-        html += "<div class='profile__job'>"+ data.job + "</div>";
+        html += "<div class='profile__job'>"+ data.address + ","+  data.job + "</div>";
         html += "</a></div>"
         $("#collection").append(html);
       }
@@ -235,8 +260,8 @@ $(function(){
   * (3)DOM Event
   */
   $(".js--submit").on("click", () => {
-    app.model.login();
-    // app.model.loginMock();
+    // app.model.login();
+    app.model.loginMock();
   });
 
   $(".js--btn--collection").on("click", (e) => {

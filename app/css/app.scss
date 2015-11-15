@@ -334,7 +334,12 @@ nav {
       margin: 20px 5px 20px 0;
     }
     &--10{
-
+      span:nth-of-type(n+1){
+        background-image: url("imgs/heart_half.png");
+      }
+      span:nth-of-type(n+2){
+        background-image: url("imgs/heart_none.png");
+      }
     }
     &--20{
       span:nth-of-type(n+2){
@@ -342,7 +347,12 @@ nav {
       }
     }
     &--30{
-
+      span:nth-of-type(n+2){
+        background-image: url("imgs/heart_half.png");
+      }
+      span:nth-of-type(n+3){
+        background-image: url("imgs/heart_none.png");
+      }
     }
     &--40{
       span:nth-of-type(n+3){
