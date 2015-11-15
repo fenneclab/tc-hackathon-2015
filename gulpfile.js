@@ -3,12 +3,16 @@ var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var browserify = require('browserify');
 var watchify = require('watchify');
-var babel = require('babelify');
+var babelify = require('babelify');
 var sass = require('gulp-sass');
+var babel = require('gulp-babel');
+var install = require('gulp-install');
+var zip = require('gulp-zip');
 var autoprefixer = require('gulp-autoprefixer');
 var del = require('del');
+var runSequence = require('run-sequence');
 
-var defaultBundler = browserify('app/js/app.js', { debug: false }).transform(babel, {presets: ['es2015']});
+var defaultBundler = browserify('app/js/app.js', { debug: false }).transform(babelify, {presets: ['es2015']});
 
 function bundle(bundler) {
   return bundler.bundle()
@@ -27,6 +31,33 @@ function watch() {
   });
 }
 
+gulp.task('clean:lambda', del.bind(null, ['build_lambda', 'lambda_archive.zip']));
+gulp.task('json:lambda', function() {
+  return gulp.src(['lambda/**/*.json', '!lambda/node_modules/**/*'])
+  .pipe(gulp.dest('build_lambda'));
+});
+gulp.task('js:lambda', function() {
+  return gulp.src(['lambda/**/*.js', '!lambda/node_modules/**/*'])
+  .pipe(babel({presets: ['es2015']}))
+  .pipe(gulp.dest('build_lambda'));
+});
+gulp.task('install:lambda', function() {
+  return gulp.src('lambda/package.json')
+  .pipe(gulp.dest('build_lambda'))
+  .pipe(install({production: true}));
+});
+gulp.task('zip:lambda', function() {
+  return gulp.src('build_lambda/**/*')
+  .pipe(zip('lambda_archive.zip'))
+  .pipe(gulp.dest('.'));
+});
+gulp.task('build:lambda', ['clean:lambda'], function(cb) {
+  return runSequence(
+    ['js:lambda', 'install:lambda', 'json:lambda'],
+    'zip:lambda',
+    cb);
+});
+
 gulp.task('clean', del.bind(null, ['build']));
 gulp.task('js', function() { return bundle(defaultBundler); });
 gulp.task('watchify', function() { return watch(); });
@@ -41,7 +72,7 @@ gulp.task('html', function() {
     .pipe(gulp.dest('./build'));
 });
 gulp.task('lib', function() {
-  gulp.src('app/js/apiGateWay-js-sdk/**/*.js', {base: 'app/js'})
+  gulp.src(['app/js/apiGateWay-js-sdk/**/*.js'], {base: 'app/js'})
     .pipe(gulp.dest('./build'));
 });
 gulp.task('stub', function() {

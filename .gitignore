@@ -1,5 +1,8 @@
 build/
+build_lambda/
 
 node_modules/
 
-server/config/local*
+lambda/config/local*
+
+lambda_archive.zip

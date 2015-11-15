@@ -50,6 +50,49 @@ $(function(){
 
         console.log('You are now logged in.');
 
+
+        // AWS.config.credentials.get(function() {
+        //   var client = new AWS.CognitoSyncManager({log: function(e) {
+        //     console.log(e);
+        //   }});
+        //   client.openOrCreateDataset('userProfile', function(err, dataset) {
+        //     if (err) {
+        //       console.error(err);
+        //     }
+        //     dataset.put('fbToken', response.authResponse.accessToken, function(err, record) {
+        //       if ( !err ) {
+        //         dataset.synchronize({
+        //           onSuccess: function(dataset, newRecords) {
+        //             console.log("Data saved successfully.");
+        //           },
+        //           onFailure: function(err) {
+        //             console.error(err);
+        //             console.log("Error occured.");
+        //           },
+        //           onConflict: function(dataset, conflicts, callback) {
+        //             var resolved = [];
+        //             console.log(conflicts);
+        //             for (var i=0; i < conflicts.length; i++) {
+        //               resolved.push(conflicts[i].resolveWithRemoteRecord());
+        //             }
+        //             dataset.resolve(resolved, function(err) {
+        //               if (err) {
+        //                 console.error(err);
+        //               }
+        //               callback(true);
+        //             });
+        //           },
+        //           onDatasetDeleted: function(dataset, datasetName, callback) {
+        //             return callback(true);
+        //           },
+        //           onDatasetMerged: function(dataset, datasetNames, callback) {
+        //             return callback(false);
+        //           }
+        //         });
+        //       }
+        //     });
+        //   });
+        // });
         var cognitoidentity = new AWS.CognitoIdentity();
         cognitoidentity.getId({
           IdentityPoolId: 'ap-northeast-1:0f6f04d8-73c8-486a-8e31-8eaea50ee3a2',
@@ -69,44 +112,34 @@ $(function(){
             if (err) {
               console.error(err);
             }
-            var apigClient = apigClientFactory.newClient({
-              accessKey   : data.Credentials.AccessKeyId,
-              secretKey   : data.Credentials.SecretKey,
+
+            AWS.config.update({
+              accessKeyId: data.Credentials.AccessKeyId,
+              secretAccessKey: data.Credentials.SecretKey,
               sessionToken: data.Credentials.SessionToken,
-              region      : 'ap-northeast-1'
+              region: 'ap-northeast-1'
             });
-            console.log(response.authResponse.accessToken);
-            apigClient.analyzeGet({"fb_token": response.authResponse.accessToken}, {}).then(function(result) {
-              app.data.result = result.data;
-              app.view.writeResult()
-            }).catch(function(err) {
-              console.error(err);
+
+            var lambda = new AWS.Lambda();
+
+            lambda.invoke({
+              FunctionName: "TCHackaThon2015Analyze",
+              InvocationType: "RequestResponse",
+              Payload: JSON.stringify({fbToken: response.authResponse.accessToken})
+            }, function(err, result) {
+              if(err) {
+                console.error(err);
+              }
+              app.data.result = JSON.parse(result.Payload);
+              app.view.writeResult();
             });
           });
         });
 
       } else {
-        console.log('There was a problem logging you in.');
+        console.error('There was a problem logging you in.');
       }
-    });
-  }
-
-  app.model.loginMock = (param1) => {
-    //pram1 = bears
-    app.view.topLoading();
-    setTimeout(()=>{
-      var url = "/stub/dummy.json";
-      $.ajax({
-        url: url,
-        type: "GET",
-        dataType: "json",
-        cache: false,
-        success: function success(msg) {
-          app.data.result = msg;
-          app.view.writeResult();
-        }
-      });
-    },app.mock.weitingTime);
+    }, {scope: 'user_posts'});
   }
 
 
@@ -133,7 +166,7 @@ $(function(){
       var html = "<div class='profile'><a class='profile__inner js--btn--detail' data-id="+ data.id + ">";
       html += "<img class='profile__img' src='"+ data.image + "'/>";
       // html += "<div class='profile__match'>"+ data.matched + "</div>";
-      html += "<div class='profile__name'>"+ data.name + "(" + data.age+ ")</div>";
+      html += "<divclass='profile__name'>"+ data.name + "(" + data.age+ ")</div>";
       html += "<div class='profile__job'>"+ data.job + "</div>";
       html += "</div></div>"
       $("#result").append(html);

@@ -12,11 +12,12 @@
     "build:lib": "gulp lib",
     "build:images": "gulp images",
     "build": "npm-run-all -s clean -p build:*",
+    "lambda:build": "gulp build:lambda",
+    "deploy": "npm run build && aws s3 sync --acl public-read --delete build/ s3://colesuky/",
     "watch": "gulp watch",
     "watchify": "gulp watchify",
     "sync": "browser-sync start --reload-delay 500 --files 'build/**/*' --server build --port 5000",
-    "api": "NODE_CONFIG_DIR='./server/config' nodemon server/ --watch ./server",
-    "start": "npm-run-all -s build -p sync api watchify watch"
+    "start": "npm-run-all -s build -p sync watchify watch"
   },
   "repository": {
     "type": "git",
@@ -36,11 +37,14 @@
     "eslint": "^1.9.0",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.1.0",
+    "gulp-babel": "^6.1.0",
     "gulp-browserify": "^0.5.1",
+    "gulp-install": "^0.6.0",
     "gulp-sass": "^2.1.0",
+    "gulp-zip": "^3.0.2",
     "jquery": "^2.1.4",
-    "nodemon": "^1.8.1",
     "npm-run-all": "^1.2.13",
+    "run-sequence": "^1.1.4",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.6.0"
