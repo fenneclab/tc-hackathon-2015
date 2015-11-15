@@ -44,14 +44,19 @@ gulp.task('lib', function() {
   gulp.src('app/js/apiGateWay-js-sdk/**/*.js', {base: 'app/js'})
     .pipe(gulp.dest('./build'));
 });
+gulp.task('stub', function() {
+  gulp.src('app/js/stub/**/*.json', {base: 'app/js'})
+    .pipe(gulp.dest('./build'));
+});
 gulp.task('images', function() {
   gulp.src('app/imgs/**/*', {base: 'app'})
     .pipe(gulp.dest('./build'));
 });
 gulp.task('watch', function() {
   gulp.watch('app/js/apiGateWay-js-sdk/**/*.js', ['lib']);
+  gulp.watch('app/js/stub/**/*.json', ['stub']);
   gulp.watch('app/*.html', ['html']);
   gulp.watch('app/css/app.scss', ['sass']);
   gulp.watch('app/imgs/**/*', ['images']);
 });
-gulp.task('default', ['watchify', 'html', 'sass', 'lib', 'images', 'watch']);
+gulp.task('default', ['watchify', 'html', 'sass', 'lib', 'stub', 'images', 'watch']);

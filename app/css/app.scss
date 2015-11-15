@@ -1,5 +1,19 @@
 @import  "reset";
 
+.clearfix {
+  *zoom: 1;
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+.fadeOut {
+  animation: fadeOut .5s linear;
+  animation-fill-mode: both;
+}
+
 html,body, .page{
   font-family: "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
   min-height: 100%;
@@ -7,13 +21,8 @@ html,body, .page{
   // overflow-y: scroll;
 
 }
-html {
-  background: url(imgs/login_back_ground@2x.jpg) center no-repeat;
-  background-size: cover;
-
-}
-body {
-
+html, body  {
+  height: 100%;
 }
 .active--index{
   .page{
@@ -27,15 +36,19 @@ body {
 .page{
   display: none;
   min-height: 100%;
-  padding-bottom: 42px;
   &--show{
     animation: fadeIn 0.7s;
     animation-fill-mode: both;
     display: block;
   }
   &--index{
-
+    background: url(imgs/login_back_ground@2x.jpg) center no-repeat;
     background-size: cover;
+    padding-bottom: 42px;
+  }
+  &--result{
+    background-color: #ececec;
+    padding-bottom: 60px;
   }
 }
 
@@ -45,17 +58,57 @@ body {
     font-size: 20px;
     font-weight: bold;
     padding-top: 75px;
+    margin-bottom: 25px;
+    &--thin{
+      background-color: #c2185b;
+      text-align: center;
+      height: auto;
+      margin-bottom: 20px;
+      img{
+        display: block;
+        padding: 12px 0;
+        margin: 0 auto;
+      }
+    }
   }
   &--sub{
     text-align: center;
+    line-height: 1;
+    font-size: 24px;
+    margin-bottom: 9px;
   }
 }
 
 .img{
   &--topLogo{
-    margin-top: 25px;
+    background: url("imgs/login_pulse.png") repeat-x 0 0;
+    background-size: 100% auto;
+    line-height: 0;
+    &:before {
+      content:"";
+      display: block;
+      padding-top:32%;
+    }
+    &.loading{
+      animation: bgScroll 40s linear infinite;
+    }
+    &__heart{
+      position: absolute;
+      left: 50%;
+      margin-left: -18%;
+      top: 10px;
+      &.loading{
+        // filter: brightness(110%);
+        animation: heartBeat 1s ease infinite;
+      }
+    }
+    &__wrap{
+      position: relative;
+
+    }
   }
 }
+
 .text{
   &--top{
     font-size: 17px;
@@ -71,7 +124,13 @@ body {
     &__wrap{
       text-align: center;
     }
-
+  }
+  &--result {
+    margin-bottom: 27px;
+    text-align: center;
+    color: #727272;
+    font-size: 12px;
+    line-height: 1;
   }
 }
 
@@ -90,16 +149,50 @@ body {
   font-size: 14px;
 }
 
-.result {
+#result {
   width: 100%;
+  @extend .clearfix;
+
 }
+
 .profile {
   width: 50%;
   float: left;
   padding: 10px;
   box-sizing: border-box;
+  &:nth-of-type(2n-1) {
+    padding: 0 6px 10px 16px;
+  }
+  &:nth-of-type(2n) {
+    padding: 0 16px 10px 6px;
+  }
   &__img {
     width: 100%;
+    margin-bottom: 6px;
+    line-height: 1;
+    border: 1px solid #bbbbbb;
+    box-sizing: border-box;
+  }
+  &__inner {
+    box-sizing: border-box;
+    border: 1px solid #f8bbd0;
+    background-color: #fff;
+    box-shadow:rgba(5, 5, 5, 0.3) 0px 0px 2px 1px;
+    position: relative;
+    padding: 2px;
+  }
+  &__name {
+    text-align: center;
+    font-size: 15px;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  &__job {
+    text-align: center;
+    font-size: 10px;
+    color: #727272;
+    line-height: 1;
+    padding-bottom: 7px;
   }
 }
 
@@ -117,8 +210,43 @@ nav {
     height: auto;
     padding: 15px 0;
     float: left;
+    color: #ffffff;
+    background-color: #e91e63;
+    &:first-of-type {
+      text-indent: -3px;
+      &:before{
+        display: inline-block;
+        content: "";
+        width: 22px;
+        height: 22px;
+        background: url("imgs/recommend_tabbar_todaysmatch@2x.png") no-repeat center;
+        background-size: auto 100%;
+        vertical-align: -5px;
+        padding-right: 5px;
+      }
+      &.on:before{
+        background-image: url("imgs/recommend_tabbar_todaysmatch_on@2x.png");
+      }
+    }
+    &:last-of-type {
+      text-indent: -5px;
+      &:before {
+        display: inline-block;
+        content: "";
+        width: 22px;
+        height: 22px;
+        background: url("imgs/recommend_tabbar_mylist@2x.png") no-repeat center;
+        background-size: auto 100%;
+        vertical-align: -5px;
+        padding-right: 7px;
+      }
+      &.on:before{
+        background-image: url("imgs/recommend_tabbar_mylist_on@2x.png");
+      }
+    }
     &.on{
-      background-color: #ccc;
+      background-color: #f3f3f3;
+      color: #c2185b;
     }
   }
 }
@@ -129,5 +257,35 @@ nav {
   }
   100% {
     opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes bgScroll {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 10000px 0;
+  }
+}
+
+@keyframes heartBeat {
+  0% {
+    transform: scale(1);
+  }
+  90% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
   }
 }

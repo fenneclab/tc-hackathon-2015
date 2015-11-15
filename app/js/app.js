@@ -93,27 +93,39 @@ $(function(){
 
   app.model.loginMock = (param1) => {
     //pram1 = bears
-
-    var url = "/stub/dummy.json"
-    $.ajax({
-      url: url,
-      type: "GET",
-      dataType: "json",
-      cache: false,
-      success: (msg) => {
-        app.data.result = msg;
-        app.view.writeResult()
-      }
-    });
+    app.view.topLoading();
+    setTimeout(()=>{
+      var url = "/stub/dummy.json";
+      $.ajax({
+        url: url,
+        type: "GET",
+        dataType: "json",
+        cache: false,
+        success: function success(msg) {
+          app.data.result = msg;
+          app.view.writeResult();
+        }
+      });
+    },5000);
   }
 
 
   /*
   * 描画: 結果取得
   */
+  app.view.topLoading = () => {
+    $(".img--topLogo").addClass("loading");
+    $(".img--topLogo__heart").attr('class', function(index, classNames) {
+      return classNames + ' loading';
+    });
+    $(".title--main").addClass("fadeOut");
+    $(".text--top").addClass("fadeOut");
+    $(".btn--facebook").addClass("fadeOut");
+    $(".text--alreadyLogin__wrap").addClass("fadeOut");
+  }
+
   app.view.writeResult = () => {
     console.log(app.data.result);
-    // console.log(app.data.result.bears);
     console.log("write");
     for (var i=0; i<app.data.result.length; i++) {
       var data = app.data.result[i];
@@ -125,11 +137,9 @@ $(function(){
       html += "<div class='profile__job'>"+ data.job + "</div>";
       html += "</div></div>"
       $("#result").append(html);
-      // $("#result").append("<divclass='profile--age'>年齢："+ data.age + "</div>");
     }
     app.view.changePage($pageIndex, $pageResult, "result");
 
-    // $("#result").html(app.data.result);
   }
 
 
