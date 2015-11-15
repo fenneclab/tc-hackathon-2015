@@ -31,7 +31,7 @@ def example_response():
 
 
 # index にアクセスしたときの処理
-@app.route('/reccomend/v1/', methods=['GET'])
+@app.route('/recommend/v1/', methods=['GET'])
 def index():
     user_json = request.args.get('user', '')
     print user_json
