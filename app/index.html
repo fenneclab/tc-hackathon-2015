@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,user-scalable=0">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <title>すごいマッチング</title>
+  <title>ColeSuky</title>
   <link rel="stylesheet" href="/app.css">
   <script src="https://sdk.amazonaws.com/js/aws-sdk-2.2.17.min.js"></script>
   <script type="text/javascript" src="apiGateway-js-sdk/lib/axios/dist/axios.standalone.js"></script>
@@ -74,22 +74,74 @@
   </div>
   <div class="page page--result">
     <h1 class="title--main--thin"><img src="imgs/logo@2x.png" width="102"></h1>
-    <h2 class="title--sub">今日のおすすめ4人</h2>
-    <p class="text--result">コレスキーはあなたの「スキ」を学習します。</p>
+    <h2 class="title--sub">本日のGoodマッチ！</h2>
+    <p class="text--result">気になった人をタップで詳細を表示</p>
     <!--結果表示-->
     <div id="result"></div>
-    <nav><a class="on">本日のおすすめ</a><a>コレクション</a></nav>
+    <nav><a class="js--btn--result on">マッチング</a><a class="js--btn--collection">コレクション</a></nav>
   </div>
   <div class="page page--collection">
     <h1 class="title--main--thin"><img src="imgs/logo@2x.png" width="102"></h1>
-    <h2 class="title--sub">今日のおすすめ4人</h2>
+    <h2 class="title--sub">コレクション</h2>
     <p class="text--result">コレスキーはあなたの「スキ」を学習します。</p>
     <!--結果表示-->
-    <div id="result"></div>
-    <nav><a class="on">本日のおすすめ</a><a>コレクション</a></nav>
+    <div id="collection"></div>
+    <nav><a class="js--btn--result">マッチング</a><a class="on js--btn--collection">コレクション</a></nav>
+  </div>
+
+  <!--詳細ページ。クリック時にデータappend-->
+  <div class="page page--detail">
+    <h1 class="title--main--thin title--main--thin--mb00"><a class="title--main--thin__back js--btn--detailBack">戻る</a><img src="imgs/logo@2x.png" width="102"></h1>
+    <div class="detailContent">
+      <img class="detail__img" src="">
+      <div class="detail__nameArea">
+        <h2 class="detail__name profile__name"></h2>
+        <p class="detail__job profile__job"></p>
+        <img class="detail__char" src="imgs/detail_type_icon@2x.png">
+      </div>
+      <p class="detail__headline">あなたとの相性マッチ度</p>
+      <div class="detail__area">
+        <div class="detail__matchHearts">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <p class="detail__matchPt"><span class="js--d--match"></span>%</p>
+      </div>
+      <p class="detail__headline">AIタイプ診断</p>
+      <div class="detail__area">
+        <p class="detail__type"></p>
+      </div>
+
+      <p class="detail__headline">あなたと似ている</p>
+      <ul class="detail__list">
+        <li>明るい<span>90%</span></li>
+        <li>真面目<span>90%</span></li>
+        <li>ほがらか<span>90%</span></li>
+      </ul>
+
+      <p class="detail__headline">正反対なところ</p>
+      <ul class="detail__list">
+        <li>頑張りや<span>20%</span></li>
+        <li>ひかえめ<span>10%</span></li>
+        <li>聞き上手<span>5%</span></li>
+      </ul>
+      <p class="detail__headline">オススメの話題</p>
+      <div class="detail__area">
+        <p class="detail__topic">ケミストリー, マーケティング, ファッション, 旅行, ジャズ</p>
+      </div>
+
+    </div>
+    <div class="detail__likeArea">
+      <p class="detail__likeArea__text">「スキ！」タップでMyリストに追加。<br>AIがあなたの好みを学習していきます。</p>
+      <a class="js--btn--like btn--like">スキ！</a>
+
+    </div>
   </div>
   <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
-  <!-- <script src="/pjax.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.0.4/js.cookie.min.js"></script>
   <script src="/app.js"></script>
 </body>
 </html>

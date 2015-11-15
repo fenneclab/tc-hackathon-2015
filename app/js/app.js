@@ -9,29 +9,29 @@ app.ctrl = {};
 app.data = {};
 app.data.result = {};
 app.data.isShowingResult = false;
-app.data.pageNow = "/";
-app.data.isLoggedIn = false;
 
-app.data.checkLogin = () => {
-  app.data.isLoggedIn = false;
-  return false;
-}
+app.data.activeDetailId = null;
+app.data.backTo = "result";
+app.data.favIds = [];
+app.mock = {};
+app.mock.weitingTime = 3000;
 
-window.onpopstate=function(e){
-  //history.back時の動く
-  if (!e.originalEvent.state) return; // 初回アクセス時に再読み込みしてしまう対策
-  //ページ読み込み、描画処理
-  var currentUri = location.pathname;
+// app.data.checkLogin = () => {
+//   app.data.isLoggedIn = false;
+//   return false;
+// }
 
-}
 
 $(function(){
-  // $.pjax({area: 'body'});
   /*
   * jQueryオブジェクトキャッシュ
   */
-  var $pageIndex = $(".page--index"),
-  $pageResult = $(".page--result");
+  var
+  $page = $(".page"),
+  $pageIndex = $(".page--index"),
+  $pageResult = $(".page--result"),
+  $pageCollection = $(".page--collection"),
+  $pageDetail = $(".page--detail");
 
   /*
   * (1)通信
@@ -106,7 +106,7 @@ $(function(){
           app.view.writeResult();
         }
       });
-    },5000);
+    },app.mock.weitingTime);
   }
 
 
@@ -130,7 +130,7 @@ $(function(){
     for (var i=0; i<app.data.result.length; i++) {
       var data = app.data.result[i];
       // $("#result").append("<div class='profile--id'>"+ data.id + "</div>");
-      var html = "<div class='profile'><div class='profile__inner'>";
+      var html = "<div class='profile'><a class='profile__inner js--btn--detail' data-id="+ data.id + ">";
       html += "<img class='profile__img' src='"+ data.image + "'/>";
       // html += "<div class='profile__match'>"+ data.matched + "</div>";
       html += "<div class='profile__name'>"+ data.name + "(" + data.age+ ")</div>";
@@ -149,18 +149,96 @@ $(function(){
   app.view.changePage = (prev, next, uri) => {
     history.pushState({}, uri);
     console.log(prev);
-    prev.removeClass("page--show");
+    $page.removeClass("page--show");
     next.addClass("page--show");
+  }
+
+
+  app.view.setDetail = (targetUser) => {
+    $(".detail__img").attr("src",targetUser.image);
+    $(".detail__name").text(targetUser.name + "(" + targetUser.age + ")");
+    $(".detail__job").text(targetUser.job);
+    $(".js--d--match").text(targetUser.matched);
+    $(".detail__type").text("聞き上手で頑張り屋さん。本当はちょっと冒険してみたい…");
+    app.data.activeDetailId = targetUser.id;
+    app.view.changePage({}, $pageDetail);
+  }
+
+  app.view.setCollection = () => {
+    for(var i=0; i < app.data.result.length; i ++){
+      if(app.data.favIds.indexOf(app.data.result[i].id) !== -1){
+        var data = app.data.result[i];
+        // $("#result").append("<div class='profile--id'>"+ data.id + "</div>");
+        var html = "<div class='profile'><a class='profile__inner js--btn--detail' data-id="+ data.id + ">";
+        html += "<img class='profile__img' src='"+ data.image + "'/>";
+        // html += "<div class='profile__match'>"+ data.matched + "</div>";
+        html += "<div class='profile__name'>"+ data.name + "(" + data.age+ ")</div>";
+        html += "<div class='profile__job'>"+ data.job + "</div>";
+        html += "</div></div>"
+        $("#collection").append(html);
+      }
+    }
+
   }
 
   /*
   * (3)DOM Event
   */
   $(".js--submit").on("click", () => {
-    app.model.login();
-    // app.model.loginMock();
+    // app.model.login();
+    app.model.loginMock();
   });
 
+  $(".js--btn--collection").on("click", (e) => {
+    // app.model.login();
+    e.preventDefault();
+    app.data.backTo = "collection";
+    app.view.setCollection();
+    app.view.changePage($pageResult,$pageCollection,"collection");
+  });
+  $(".js--btn--result").on("click", (e) => {
+    // app.model.login();
+    e.preventDefault();
+    app.data.backTo = "result";
+    app.view.changePage($pageCollection,$pageResult,"result");
+  });
+  $(".js--btn--detailBack").on("click",function(e){
+    e.preventDefault();
+    if(app.data.backTo === "collection"){
+      app.view.changePage($pageResult,$pageCollection,"collection");
+    }else{
+      app.view.changePage($pageCollection,$pageResult,"result");
+    }
+  });
+  $(".js--btn--like").on("click",function(e){
+    e.preventDefault();
+    // console.log($(this).data("id"));
+    if(app.data.favIds.indexOf(app.data.activeDetailId) !== -1){
+      app.data.favIds.some(function(v, i){
+         if (v==app.data.activeDetailId) app.data.favIds.splice(i,1);
+      });
+      $(".btn--like").removeClass("on");
+    }else{
+      app.data.favIds.push(app.data.activeDetailId);
+      $(".btn--like").addClass("on");
+    }
+    console.log(app.data.favIds);
+  });
+  $(document).on("click",".js--btn--detail" ,function(e){
+    var that = this;
+    e.preventDefault();
+    var userId = parseInt($(this).data("id"));
+    var targetUser = {};
+    for(var i=0; i < app.data.result.length; i++){
+      if(parseInt(app.data.result[i].id) === userId){
+        targetUser = app.data.result[i];
+        break;
+      }
+    }
+
+    console.log(targetUser);
+    app.view.setDetail(targetUser);
+  })
   /*
   * (4)Pjax
   */
