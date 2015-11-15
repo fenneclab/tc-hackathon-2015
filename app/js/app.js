@@ -37,7 +37,7 @@ $(function(){
   * (1)通信
   */
   app.model.login = (param1) => {
-    //pram1 = bears
+    app.view.topLoading();
     FB.login(function(response) {
       if (response.authResponse) {
         AWS.config.region = 'ap-northeast-1';
@@ -157,8 +157,8 @@ $(function(){
   * (3)DOM Event
   */
   $(".js--submit").on("click", () => {
-    // app.model.login();
-    app.model.loginMock();
+    app.model.login();
+    // app.model.loginMock();
   });
 
   /*
