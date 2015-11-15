@@ -34,10 +34,10 @@ def make_lsh_engine(dim):
 
 
 def query(user_dict):
-    for i in range(10):
+    for i in range(100):
         results = _query(user_dict)
 
-        if results:
+        if results and len(results) > 7:
             return results
         else:
             time.sleep(0.1)
