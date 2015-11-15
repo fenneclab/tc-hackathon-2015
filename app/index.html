@@ -3,10 +3,51 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>example</title>
-  <link rel="stylesheet" href="">
+  <meta name="viewport" content="width=device-width,user-scalable=0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>すごいマッチング</title>
+  <link rel="stylesheet" href="/app.css">
+  <script src="https://sdk.amazonaws.com/js/aws-sdk-2.2.17.min.js"></script>
 </head>
-<body id="example">
+<body id="body" class="active--index">
+  <script>
+    // todo: use es2015
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1668522033362849',
+        xfbml      : true,
+        version    : 'v2.5'
+      });
+    };
+    (function(d, s, id){
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {return;}
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  </script>
+  <div class="page page--index page--show">
+    <h1 class="title--main"><img src="imgs/login_Logo@2x.png" width="300"></h1>
+    <img class="img--topLogo" src="imgs/login_love_img@2x.png" width="100%">
+    <p class="text--top">恋愛マッチング人口知能コレスキーが<br/>
+      相性の良さそうな異性を毎日4人おすすめ。<br/>
+      使えば使うほどコレスキーは<br/>
+      あなたの好みを学習していきます。
+    </p>
+    <button type="submit" class="js--submit btn btn--facebook">Facebookで始める</button>
+    <p class="text--alreadyLogin__wrap">
+      <a class="text--alreadyLogin">ログイン済みの方はこちら</a>
+    </p>
+  </div>
+  <div class="page page--result">
+    <h2>今日マッチした</h2>
+    <!--結果表示-->
+    <div id="result"></div>
+    <nav><a class="on">今日のマッチ結果</a><a>コレクション</a></nav>
+  </div>
+  <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+  <!-- <script src="/pjax.js"></script> -->
   <script src="/app.js"></script>
 </body>
 </html>

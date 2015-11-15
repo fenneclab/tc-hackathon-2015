@@ -16,6 +16,7 @@ npm install
 
 ```
 npm start
+gulp watch
 ```
 
 ## development

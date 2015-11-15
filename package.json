@@ -5,13 +5,17 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build-init": "mkdirp build",
-    "build:html": "cp app/*.html ./build",
-    "build:js": "browserify app/js/app.js -t [ babelify --presets [ es2015 ] ] -o build/app.js",
-    "build": "npm-run-all -s build-init -p build:*",
+    "clean": "gulp clean",
+    "build:html": "gulp html",
+    "build:css": "gulp sass",
+    "build:js": "gulp js",
+    "build:lib": "gulp lib",
+    "build:images": "gulp images",
+    "build": "npm-run-all -s clean -p build:*",
+    "watch": "gulp watch",
+    "watchify": "gulp watchify",
     "sync": "browser-sync start --reload-delay 500 --files 'build/**/*' --server build --port 5000",
-    "api": "nodemon server/ --watch ./server",
-    "start": "npm-run-all -p build -p sync api"
+    "start": "npm-run-all -s build -p sync watchify watch"
   },
   "repository": {
     "type": "git",
@@ -27,17 +31,33 @@
     "babelify": "^7.2.0",
     "browser-sync": "^2.10.0",
     "browserify": "^12.0.1",
+    "del": "^2.1.0",
     "eslint": "^1.9.0",
-    "mkdirp": "^0.5.1",
-    "nodemon": "^1.8.1",
-    "npm-run-all": "^1.2.13"
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-babel": "^6.1.0",
+    "gulp-browserify": "^0.5.1",
+    "gulp-install": "^0.6.0",
+    "gulp-sass": "^2.1.0",
+    "gulp-zip": "^3.0.2",
+    "jquery": "^2.1.4",
+    "npm-run-all": "^1.2.13",
+    "run-sequence": "^1.1.4",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.6.0"
   },
   "dependencies": {
     "babel-core": "^6.1.20",
     "babel-preset-es2015": "^6.1.18",
+    "bluebird": "^3.0.5",
     "body-parser": "^1.14.1",
+    "config": "^1.16.0",
     "cors": "^2.7.1",
     "express": "^4.13.3",
-    "mithril": "^0.2.0"
+    "googleapis": "^2.1.6",
+    "lodash": "^3.10.1",
+    "mithril": "^0.2.0",
+    "watson-developer-cloud": "^0.10.6"
   }
 }

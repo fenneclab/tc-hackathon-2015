@@ -1,0 +1,133 @@
+@import  "reset";
+
+html,body, .page{
+  font-family: "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+  min-height: 100%;
+  // height: 100%;
+  // overflow-y: scroll;
+
+}
+html {
+  background: url(imgs/login_back_ground@2x.jpg) center no-repeat;
+  background-size: cover;
+
+}
+body {
+
+}
+.active--index{
+  .page{
+    &--index{
+      opacity: 1;
+    }
+  }
+
+}
+
+.page{
+  display: none;
+  min-height: 100%;
+  padding-bottom: 42px;
+  &--show{
+    animation: fadeIn 0.7s;
+    animation-fill-mode: both;
+    display: block;
+  }
+  &--index{
+
+    background-size: cover;
+  }
+}
+
+.title{
+  &--main{
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    padding-top: 75px;
+  }
+  &--sub{
+    text-align: center;
+  }
+}
+
+.img{
+  &--topLogo{
+    margin-top: 25px;
+  }
+}
+.text{
+  &--top{
+    font-size: 17px;
+    text-align: center;
+    line-height: (48/34);
+    color: #fff;
+    margin-top: 48px;
+  }
+  &--alreadyLogin{
+    color: #fff;
+    display: inline-block;
+    margin: 0 auto;
+    &__wrap{
+      text-align: center;
+    }
+
+  }
+}
+
+.btn {
+  -webkit-appearance: none;
+  background: url(imgs/login_sign_up@2x.png) no-repeat center;
+  background-size: 100%;
+  width: 320px;
+  height: 60px;
+  color: #fff;
+  display: block;
+  text-align: center;
+  border: none;
+  margin: 56px auto 18px;
+  text-indent: -9999px;
+  font-size: 14px;
+}
+
+.result {
+  width: 100%;
+}
+.profile {
+  width: 50%;
+  float: left;
+  padding: 10px;
+  box-sizing: border-box;
+  &__img {
+    width: 100%;
+  }
+}
+
+nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background-color: #999;
+  // height: 40px;
+  width: 100%;
+  a{
+    display: block;
+    text-align: center;
+    width: 50%;
+    height: auto;
+    padding: 15px 0;
+    float: left;
+    &.on{
+      background-color: #ccc;
+    }
+  }
+}
+
+@keyframes fadeIn{
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
