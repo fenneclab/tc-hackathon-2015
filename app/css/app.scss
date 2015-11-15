@@ -1,5 +1,19 @@
 @import  "reset";
 
+.clearfix {
+  *zoom: 1;
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+.fadeOut {
+  animation: fadeOut .7s linear;
+  animation-fill-mode: both;
+}
+
 html,body, .page{
   font-family: "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
   min-height: 100%;
@@ -7,13 +21,11 @@ html,body, .page{
   // overflow-y: scroll;
 
 }
-html {
-  background: url(imgs/login_back_ground@2x.jpg) center no-repeat;
-  background-size: cover;
-
+html, body  {
+  height: 100%;
 }
-body {
-
+html {
+  background-color: #ececec;
 }
 .active--index{
   .page{
@@ -27,15 +39,22 @@ body {
 .page{
   display: none;
   min-height: 100%;
-  padding-bottom: 42px;
   &--show{
-    animation: fadeIn 0.7s;
+    animation: fadeIn 0.8s ease;
     animation-fill-mode: both;
     display: block;
   }
   &--index{
-
+    background: url(imgs/login_back_ground@2x.jpg) center no-repeat;
     background-size: cover;
+    padding-bottom: 42px;
+  }
+  &--result, &--collection{
+    background-color: #ececec;
+    padding-bottom: 60px;
+  }
+  &--detail{
+    padding-bottom: 80px;
   }
 }
 
@@ -45,17 +64,74 @@ body {
     font-size: 20px;
     font-weight: bold;
     padding-top: 75px;
+    margin-bottom: 25px;
+    &--thin{
+      background: url(imgs/navigation_bar.png) no-repeat center;
+      background-size: cover;
+      text-align: center;
+      height: auto;
+      margin-bottom: 20px;
+      position: relative;
+      box-shadow:rgba(5, 5, 5, 0.3) 0px 0px 3px 3px;
+      img{
+        display: block;
+        padding: 12px 0;
+        margin: 0 auto;
+      }
+      &--mb00{
+        margin-bottom: 0;
+      }
+      &__back{
+        position: absolute;
+        left: 12px;
+        top: 12px;
+        background: url(imgs/detail_Back@2x.png) no-repeat center;
+        width: 47px;
+        height: 20px;
+        background-size: 100%;
+        text-indent: -9999px;
+      }
+    }
   }
   &--sub{
     text-align: center;
+    line-height: 1;
+    font-size: 24px;
+    margin-bottom: 9px;
   }
 }
 
 .img{
   &--topLogo{
-    margin-top: 25px;
+    background: url("imgs/login_pulse.png") repeat-x 0 0;
+    background-size: 100% auto;
+    line-height: 0;
+    &:before {
+      content:"";
+      display: block;
+      padding-top:32%;
+    }
+    &.loading{
+      animation: bgScroll 40s linear infinite;
+    }
+    &__heart{
+      position: absolute;
+      left: 50%;
+      margin-left: -18%;
+      top: 10px;
+      width: 36%;
+      &.loading{
+        // filter: brightness(110%);
+        animation: heartBeat 1s ease infinite;
+      }
+    }
+    &__wrap{
+      position: relative;
+
+    }
   }
 }
+
 .text{
   &--top{
     font-size: 17px;
@@ -71,7 +147,13 @@ body {
     &__wrap{
       text-align: center;
     }
-
+  }
+  &--result {
+    margin-bottom: 27px;
+    text-align: center;
+    color: #727272;
+    font-size: 12px;
+    line-height: 1;
   }
 }
 
@@ -88,18 +170,54 @@ body {
   margin: 56px auto 18px;
   text-indent: -9999px;
   font-size: 14px;
+
 }
 
-.result {
+#result {
   width: 100%;
+  @extend .clearfix;
+
 }
+
 .profile {
   width: 50%;
   float: left;
   padding: 10px;
   box-sizing: border-box;
+  &:nth-of-type(2n-1) {
+    padding: 0 6px 10px 16px;
+  }
+  &:nth-of-type(2n) {
+    padding: 0 16px 10px 6px;
+  }
   &__img {
     width: 100%;
+    margin-bottom: 6px;
+    line-height: 1;
+    border: 1px solid #bbbbbb;
+    box-sizing: border-box;
+  }
+  &__inner {
+    display: block;
+    box-sizing: border-box;
+    border: 1px solid #f8bbd0;
+    background-color: #fff;
+    box-shadow:rgba(5, 5, 5, 0.3) 0px 0px 2px 1px;
+    position: relative;
+    padding: 2px;
+  }
+  &__name {
+    text-align: center;
+    font-size: 15px;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  &__job {
+    text-align: center;
+    font-size: 10px;
+    color: #727272;
+    line-height: 1;
+    padding-bottom: 7px;
   }
 }
 
@@ -117,8 +235,263 @@ nav {
     height: auto;
     padding: 15px 0;
     float: left;
+    color: #ffffff;
+    background-color: #e91e63;
+    &:first-of-type {
+      text-indent: -3px;
+      &:before{
+        display: inline-block;
+        content: "";
+        width: 22px;
+        height: 22px;
+        background: url("imgs/recommend_tabbar_todaysmatch@2x.png") no-repeat center;
+        background-size: auto 100%;
+        vertical-align: -5px;
+        padding-right: 5px;
+      }
+      &.on:before{
+        background-image: url("imgs/recommend_tabbar_todaysmatch_on@2x.png");
+      }
+    }
+    &:last-of-type {
+      text-indent: -5px;
+      &:before {
+        display: inline-block;
+        content: "";
+        width: 22px;
+        height: 22px;
+        background: url("imgs/recommend_tabbar_mylist@2x.png") no-repeat center;
+        background-size: auto 100%;
+        vertical-align: -5px;
+        padding-right: 7px;
+      }
+      &.on:before{
+        background-image: url("imgs/recommend_tabbar_mylist_on@2x.png");
+      }
+    }
     &.on{
-      background-color: #ccc;
+      background-color: #f3f3f3;
+      color: #c2185b;
+    }
+  }
+}
+
+.detail {
+  &__img{
+    width: 100%;
+    box-shadow:rgba(5, 5, 5, 0.3) 0px 0px 3px 3px;
+  }
+  &__name{
+    font-weight: bold;
+    line-height: 1;
+    font-size: 24px;
+    text-align: left;
+    padding-top: 14px;
+
+  }
+  &__job{
+    text-align: left;
+    font-size: 15px;
+    margin-bottom: 4px;
+  }
+  &__nameArea {
+    position: relative;
+    margin-left: 23px;
+    margin-right: 23px;
+    border-bottom: 1px solid #dddddd;
+  }
+  &__char {
+    position: absolute;
+    bottom: 21px;
+    width: 102px;
+    right: -2px;
+  }
+  &__headline{
+    line-height: 1;
+    font-size: 15px;
+    margin-top: 24px;
+    margin-bottom: 6px;
+    padding: 0 15px;
+  }
+  &__area{
+    background-color: #fff;
+    border-radius: 1.5px;
+    box-shadow:rgba(5, 5, 5, 0.3) 0px 0px 2px 1px;
+    margin: 0 15px;
+    position: relative;
+  }
+  &__matchHearts{
+    @extend .clearfix;
+    padding-left: 10px;
+    box-sizing: border-box;
+    span{
+      display: block;
+      width: 42px;
+      height: 42px;
+      background: url(imgs/heart_full.png) no-repeat center;
+      background-size: 100%;
+      float: left;
+      margin: 20px 5px 20px 0;
+    }
+    &--10{
+
+    }
+    &--20{
+      span:nth-of-type(n+2){
+        background-image: url("imgs/heart_none.png");
+      }
+    }
+    &--30{
+
+    }
+    &--40{
+      span:nth-of-type(n+3){
+        background-image: url("imgs/heart_none.png");
+      }
+    }
+    &--50{
+      span:nth-of-type(n+3){
+        background-image: url("imgs/heart_half.png");
+      }
+      span:nth-of-type(n+4){
+        background-image: url("imgs/heart_none.png");
+      }
+    }
+    &--60{
+      span:nth-of-type(n+4){
+        background-image: url("imgs/heart_none.png");
+      }
+    }
+    &--70{
+      span:nth-of-type(4){
+        background-image: url("imgs/heart_half.png");
+      }
+      span:nth-of-type(5){
+        background-image: url("imgs/heart_none.png");
+      }
+    }
+    &--80{
+      span:nth-of-type(5){
+        background-image: url("imgs/heart_none.png");
+      }
+    }
+    &--90{
+      span:nth-of-type(5){
+        background-image: url("imgs/heart_half.png");
+      }
+    }
+    &--100{
+
+    }
+  }
+  &__matchPt{
+    position: absolute;
+    font-size: 20px;
+    right: 20px;
+    top: 10px;
+    span{
+      font-size: 40px;
+    }
+  }
+  &__type{
+    font-size: 20px;
+    line-height: (60/40);
+    padding: 16px 8px;
+  }
+  &__list{
+    background-color: #fff;
+    border-radius: 1.5px;
+    box-shadow:rgba(5, 5, 5, 0.3) 0px 0px 2px 1px;
+    margin: 0 15px;
+    position: relative;
+    padding: 7px 0 12px 0;
+    li{
+      box-sizing: border-box;
+      border-bottom: 1px solid #f3f3f3;
+      margin: 0 9px;
+      font-size: 15px;
+      height: 41px;
+      line-height: 40px;
+      position: relative;
+      span{
+        position: absolute;
+        right: 0;
+      }
+      &:nth-of-type(1){
+        &:before{
+          width: 28px;
+          height: 19px;
+          vertical-align: -4px;
+          margin-right: 10px;
+          content:"";
+          display: inline-block;
+          background: url(imgs/detail_crown_gold.png) no-repeat center;
+          background-size: 100%;
+
+        }
+      }
+      &:nth-of-type(2){
+        &:before{
+          width: 28px;
+          height: 19px;
+          vertical-align: -4px;
+          margin-right: 10px;
+
+          content:"";
+          display: inline-block;
+          background: url(imgs/detail_crown_silver.png) no-repeat center;
+          background-size: 100%;
+
+        }
+      }
+      &:nth-of-type(3){
+        &:before{
+          width: 28px;
+          height: 19px;
+          vertical-align: -4px;
+          margin-right: 10px;
+          content:"";
+          display: inline-block;
+          background: url(imgs/detail_crown_bronze.png) no-repeat center;
+          background-size: 100%;
+        }
+      }
+    }
+  }
+  &__topic{
+    font-size: 15px;
+    line-height: (44/30);
+    padding: 16px 8px;
+    min-height: 95px;
+    box-sizing: border-box;
+  }
+  &__likeArea{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(255,255,255,0.8);
+    width: 100%;
+    @extend clearfix;
+    height: 60px;
+    &__text{
+      font-size: 12px;
+      line-height: 1.2;
+      float: left;
+      margin-left: 16px;
+      margin-top: 12px;
+    }
+    .btn--like{
+      float: right;
+      text-indent: -9999px;
+      width: 125px;
+      height: 40px;
+      background: url(imgs/detail_suki_button@2x.png) no-repeat center;
+      background-size: 100%;
+      margin-right: 16px;
+      margin-top: 12px;
+      &.on{
+        background-image: url(imgs/detail_suki_button_on@2x.png);
+      }
     }
   }
 }
@@ -126,8 +499,40 @@ nav {
 @keyframes fadeIn{
   0% {
     opacity: 0;
+    // transform: translateY(20px);
   }
   100% {
     opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+}
+
+@keyframes bgScroll {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 10000px 0;
+  }
+}
+
+@keyframes heartBeat {
+  0% {
+    transform: scale(1);
+  }
+  90% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
   }
 }
