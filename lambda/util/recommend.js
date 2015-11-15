@@ -3,6 +3,7 @@ import rq from 'request-promise';
 
 const USERS = {
   'akira': {
+    id     : 1,
     name   : '佐々木 瞳',
     age    : 26,
     address: '港区',
@@ -12,6 +13,7 @@ const USERS = {
     AIType : ['大胆で誠実', '本当はもっと甘えてみたい']
   },
   'ami': {
+    id     : 2,
     name   : '山田 優',
     age    : 24,
     address: '杉並区',
@@ -21,6 +23,7 @@ const USERS = {
     AIType : ['挑戦好きで大胆', '本当はもっと冒険してみたい']
   },
   'ariana': {
+    id     : 3,
     name   : '山崎 愛',
     age    : 26,
     address: '目黒区',
@@ -30,6 +33,7 @@ const USERS = {
     AIType : ['向上心があり創造的', '本当はもっと思いのままに生きてみたい']
   },
   'arison': {
+    id     : 4,
     name   : '時田 みな',
     age    : 22,
     address: '新宿区',
@@ -39,6 +43,7 @@ const USERS = {
     AIType : ['聞き上手で活動的', '本当はもっと堅実に生きていきたい']
   },
   'gomaki': {
+    id     : 5,
     name   : '高田 まみ',
     age    : 27,
     address: '杉並区',
@@ -48,6 +53,7 @@ const USERS = {
     AIType : ['外交的で協調性がある', '本当はもっと自分を表現してみたい']
   },
   'hirary': {
+    id     : 6,
     name   : '池田 百合',
     age    : 30,
     address: '千代田区',
@@ -57,6 +63,7 @@ const USERS = {
     AIType : ['聞き上手で独立心がある', '本当はもっと冒険してみたい']
   },
   'kanako': {
+    id     : 7,
     name   : '篠田 ゆうこ',
     age    : 22,
     address: '横浜',
@@ -66,6 +73,7 @@ const USERS = {
     AIType : ['信念があり、きちんとしたことが好き', '本当はもっと堅実に生きていきたい']
   },
   'love': {
+    id     : 8,
     name   : '笠井 枝理依',
     age    : 28,
     address: '新宿区',
@@ -75,6 +83,7 @@ const USERS = {
     AIType : ['聞き上手で照れ屋', '本当はもっと人とつながりたい']
   },
   'taylor': {
+    id     : 9,
     name   : '横手 絵里子',
     age    : 27,
     address: '赤羽',
