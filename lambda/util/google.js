@@ -10,7 +10,6 @@ export default {
       if (!message) {
         return resolve('');
       }
-      console.log(message);
       gTranslate.translations.list({
         key   : config.default.google.apiKey,
         q     : message,
@@ -21,7 +20,6 @@ export default {
           console.error(err);
           return resolve('');
         }
-        console.log(result);
         return resolve(result.data.translations[0].translatedText);
       });
     });
