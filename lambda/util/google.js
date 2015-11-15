@@ -11,7 +11,7 @@ export default {
         return resolve('');
       }
       gTranslate.translations.list({
-        key   : config.default.google.apiKey,
+        key   : config.google.apiKey,
         q     : message,
         source: 'ja',
         target: 'en'
