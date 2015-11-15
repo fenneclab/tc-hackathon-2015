@@ -32,6 +32,10 @@ function watch() {
 }
 
 gulp.task('clean:lambda', del.bind(null, ['build_lambda', 'lambda_archive.zip']));
+gulp.task('json:lambda', function() {
+  return gulp.src(['lambda/**/*.json', '!lambda/node_modules/**/*'])
+  .pipe(gulp.dest('build_lambda'));
+});
 gulp.task('js:lambda', function() {
   return gulp.src(['lambda/**/*.js', '!lambda/node_modules/**/*'])
   .pipe(babel({presets: ['es2015']}))
@@ -49,7 +53,7 @@ gulp.task('zip:lambda', function() {
 });
 gulp.task('build:lambda', ['clean:lambda'], function(cb) {
   return runSequence(
-    ['js:lambda', 'install:lambda'],
+    ['js:lambda', 'install:lambda', 'json:lambda'],
     'zip:lambda',
     cb);
 });

@@ -2,7 +2,8 @@ import _ from 'lodash';
 import Promise from 'bluebird';
 import google from './util/google';
 import facebook from './util/facebook';
-// import watoson from './util/watoson';
+import watoson from './util/watoson';
+import recommend from './util/recommend';
 
 function analyze(fbToken) {
   return facebook.getFeed(fbToken).then(feed => {
@@ -18,33 +19,9 @@ function analyze(fbToken) {
     console.log('words count: ' + translateds.reduce((prev, e) => {
       return _.words(e).length + prev;
     }, 0));
-    // return watoson.personalityInsights(translateds.join('\n'));
-    // dummy response
-    return [{
-      id     : 1,
-      name   : 'さや',
-      age    : 24,
-      image  : 'https://s3-ap-northeast-1.amazonaws.com/tc-hackathon-2015-kari/1.jpg',
-      matched: 80
-    }, {
-      id     : 2,
-      name   : 'しずか',
-      age    : 21,
-      image  : 'https://s3-ap-northeast-1.amazonaws.com/tc-hackathon-2015-kari/2.jpg',
-      matched: 79
-    }, {
-      id     : 3,
-      name   : 'メロン',
-      age    : 20,
-      image  : 'https://s3-ap-northeast-1.amazonaws.com/tc-hackathon-2015-kari/3.jpg',
-      matched: 76
-    }, {
-      id     : 4,
-      name   : 'みほ',
-      age    : 22,
-      image  : 'https://s3-ap-northeast-1.amazonaws.com/tc-hackathon-2015-kari/4.jpg',
-      matched: 70
-    }];
+    return watoson.personalityInsights(translateds.join('\n'));
+  }).then(persona => {
+    return recommend.getMatched(persona);
   });
 }
 
