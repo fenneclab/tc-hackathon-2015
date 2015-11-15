@@ -142,6 +142,23 @@ $(function(){
     }, {scope: 'user_posts'});
   }
 
+    app.model.loginMock = (param1) => {
+      //pram1 = bears
+      app.view.topLoading();
+      setTimeout(()=>{
+        var url = "/stub/dummy.json";
+        $.ajax({
+          url: url,
+          type: "GET",
+          dataType: "json",
+          cache: false,
+          success: function success(msg) {
+            app.data.result = msg;
+            app.view.writeResult();
+         }
+       });
+     })
+   }
 
   /*
   * 描画: 結果取得
@@ -166,7 +183,7 @@ $(function(){
       var html = "<div class='profile'><a class='profile__inner js--btn--detail' data-id="+ data.id + ">";
       html += "<img class='profile__img' src='"+ data.image + "'/>";
       // html += "<div class='profile__match'>"+ data.matched + "</div>";
-      html += "<divclass='profile__name'>"+ data.name + "(" + data.age+ ")</div>";
+      html += "<div class='profile__name'>"+ data.name + "(" + data.age+ ")</div>";
       html += "<div class='profile__job'>"+ data.job + "</div>";
       html += "</div></div>"
       $("#result").append(html);
@@ -207,7 +224,7 @@ $(function(){
         // html += "<div class='profile__match'>"+ data.matched + "</div>";
         html += "<div class='profile__name'>"+ data.name + "(" + data.age+ ")</div>";
         html += "<div class='profile__job'>"+ data.job + "</div>";
-        html += "</div></div>"
+        html += "</a></div>"
         $("#collection").append(html);
       }
     }
