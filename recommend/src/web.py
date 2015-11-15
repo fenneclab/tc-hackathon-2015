@@ -38,7 +38,7 @@ def example_response():
 def index():
     user_json = request.args.get('user', None)
 
-    return example_response()
+    # return example_response()
 
     if user_json:
         print user_json
