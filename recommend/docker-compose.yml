@@ -1,15 +1,29 @@
 batch:
   build: .
-  command: /bin/bash
-  dockerfile: Dockerfile
+  command: python src/batch.py
+  dockerfile: batch.Dockerfile
   working_dir: /var/www
   volumes:
     - .:/var/www
   links:
-    - redis
-  environment:
-    - REDIS_HOST=redis
-    - REDIS_PORT=6379
+    - redis-recommend
+    - redis-user
 
-redis:
+web:
+  build: .
+  command: python src/web.py
+  dockerfile: web.Dockerfile
+  working_dir: /var/www
+  volumes:
+    - .:/var/www
+  links:
+    - redis-recommend
+    - redis-user
+  ports:
+    - "80:8080"
+
+redis-recommend:
+  image: redis
+
+redis-user:
   image: redis

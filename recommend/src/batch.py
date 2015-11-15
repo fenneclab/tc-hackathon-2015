@@ -1,47 +1,58 @@
 # -*- coding: utf-8 -*-
 import os
 import json
-import pickle
 
 # 3rd party
 import redis
+from lshash import LSHash
 
 #
+from db import REDIS_RECOMMEND_HOST, REDIS_RECOMMEND_PORT, recommend_db, user_db
 from models import User
 
 WORK_DIR = '/var/www'
-REDIS_HOST = os.environ.get('REDIS_PORT_6379_TCP_ADDR')
-REDIS_PORT = 6379
 
-redis_db = redis.Redis(host=REDIS_HOST, port=REDIS_PORT,)
+LSH_HASH_SIZE = 1   # ハッシュを何bitにするのか
+LSH_INPUT_DIM = 52  # 入力ベクトルの次元数
+LSH_NUM_HASHTABLES = 1  #
+LSH_STORAGE_CONF = {
+    "redis": {
+        "host": REDIS_RECOMMEND_HOST,
+        "port": REDIS_RECOMMEND_PORT,
+        # "db": 0,
+    }
+}
 
 
-def example_json_results():
-    f = open('example_personal_api_results.json', 'r')
-    results = f.read()
-    f.close()
-    return results
+def make_lsh_engine(dim):
+    lsh_engine = LSHash(
+        LSH_HASH_SIZE,
+        dim,
+        LSH_NUM_HASHTABLES,
+        storage_config=LSH_STORAGE_CONF,
+    )
+
+    return lsh_engine
 
 
-def make_redis_db(users_data):
+def make_lsh_model():
+    keys = user_db.keys('*')
     users = []
+    for id in keys:
+        print 'id'
+        user_json = user_db.get(id)
+        user = User(json.loads(user_json), id)
+        users.append(user)
 
-    for i, user_dict in enumerate(users_data):
-        print i
-        id = i + 1
-        print user_dict
-        print "*" * 40
-        u = User(user_dict, id)
-        users.append(u)
+    dim = users[0].vector_dim
+    lsh_engine = make_lsh_engine(dim)
 
+    print users
     for user in users:
-        # print user
-        redis_db.set(user.id, user.json)
+        lsh_engine.index(user.vector, user.id)
 
+    return lsh_engine
 
 if __name__ == "__main__":
-    redis_db.flushall()
-    json_results = example_json_results()
-    results = json.loads(json_results)
-    users_data = results[u'results']
-    make_redis_db(users_data)
+    recommend_db.flushall()
+    make_lsh_model()

@@ -1,0 +1,189 @@
+{
+  "Big 5": {
+    "Agreeableness": {
+      "percentage": 0.014566078315281918,
+      "details": {
+        "Openness": {
+          "percentage": 0.9167087197112527,
+          "details": {
+            "Adventurousness": {
+              "percentage": 0.8472307514507453
+            },
+            "Artistic interests": {
+              "percentage": 0.018413095440398725
+            },
+            "Emotionality": {
+              "percentage": 0.04519917547380267
+            },
+            "Imagination": {
+              "percentage": 0.9638217499646429
+            },
+            "Intellect": {
+              "percentage": 0.9326341451663424
+            },
+            "Authority-challenging": {
+              "percentage": 0.9810082740554444
+            }
+          }
+        },
+        "Conscientiousness": {
+          "percentage": 0.4693252141385994,
+          "details": {
+            "Achievement striving": {
+              "percentage": 0.6127452063134758
+            },
+            "Cautiousness": {
+              "percentage": 0.6142872520404847
+            },
+            "Dutifulness": {
+              "percentage": 0.07866291695376268
+            },
+            "Orderliness": {
+              "percentage": 0.11087904668153592
+            },
+            "Self-discipline": {
+              "percentage": 0.38860672589519235
+            },
+            "Self-efficacy": {
+              "percentage": 0.2716980817870978
+            }
+          }
+        },
+        "Extraversion": {
+          "percentage": 0.05945000096414259,
+          "details": {
+            "Activity level": {
+              "percentage": 0.019303296116051704
+            },
+            "Assertiveness": {
+              "percentage": 0.0981142535693072
+            },
+            "Cheerfulness": {
+              "percentage": 0.021642685041258734
+            },
+            "Excitement-seeking": {
+              "percentage": 0.1800942770641307
+            },
+            "Outgoing": {
+              "percentage": 0.01368579917271843
+            },
+            "Gregariousness": {
+              "percentage": 0.019720799950127134
+            }
+          }
+        },
+        "Agreeableness": {
+          "percentage": 0.014566078315281918,
+          "details": {
+            "Altruism": {
+              "percentage": 0.012358436829614019
+            },
+            "Cooperation": {
+              "percentage": 0.14516998626603625
+            },
+            "Modesty": {
+              "percentage": 0.0369450556233314
+            },
+            "Uncompromising": {
+              "percentage": 0.01674365978884596
+            },
+            "Sympathy": {
+              "percentage": 0.05780684981748377
+            },
+            "Trust": {
+              "percentage": 0.03524966256501311
+            }
+          }
+        },
+        "Emotional range": {
+          "percentage": 0.36330170411642976,
+          "details": {
+            "Fiery": {
+              "percentage": 0.18216754118251421
+            },
+            "Prone to worry": {
+              "percentage": 0.14728742892355026
+            },
+            "Melancholy": {
+              "percentage": 0.5769906658313885
+            },
+            "Immoderation": {
+              "percentage": 0.28024336533783717
+            },
+            "Self-consciousness": {
+              "percentage": 0.6861779449681645
+            },
+            "Susceptible to stress": {
+              "percentage": 0.2978824803313414
+            }
+          }
+        }
+      }
+    }
+  },
+  "Needs": {
+    "Liberty": {
+      "percentage": 0.020788993310134198,
+      "details": {
+        "Challenge": {
+          "percentage": 0.3537902476493126
+        },
+        "Closeness": {
+          "percentage": 0.044075109742108466
+        },
+        "Curiosity": {
+          "percentage": 0.40874530596753667
+        },
+        "Excitement": {
+          "percentage": 0.03360096915015985
+        },
+        "Harmony": {
+          "percentage": 0.03182931603988124
+        },
+        "Ideal": {
+          "percentage": 0.20844046532829866
+        },
+        "Liberty": {
+          "percentage": 0.020788993310134198
+        },
+        "Love": {
+          "percentage": 0.021368273141935838
+        },
+        "Practicality": {
+          "percentage": 0.03863480491596966
+        },
+        "Self-expression": {
+          "percentage": 0.1488611122966698
+        },
+        "Stability": {
+          "percentage": 0.029114928571544914
+        },
+        "Structure": {
+          "percentage": 0.044426598136414155
+        }
+      }
+    }
+  },
+  "Values": {
+    "Openness to change": {
+      "percentage": 0.08169716098647488,
+      "details": {
+        "Conservation": {
+          "percentage": 0.9016254328483189
+        },
+        "Openness to change": {
+          "percentage": 0.08169716098647488
+        },
+        "Hedonism": {
+          "percentage": 0.1731683727096675
+        },
+        "Self-enhancement": {
+          "percentage": 0.41188268204383544
+        },
+        "Self-transcendence": {
+          "percentage": 0.28872673630251666
+        }
+      }
+    }
+  }
+}

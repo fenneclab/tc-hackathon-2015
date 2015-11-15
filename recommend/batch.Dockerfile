@@ -7,16 +7,12 @@ deb http://jp.archive.ubuntu.com/ubuntu/ trusty-security main restricted univers
 
 RUN apt-get update && apt-get install -y \
     python-numpy \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/
-
-RUN apt-get update && apt-get install -y \
     python-pip \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/
-  
+
 ADD requirements /var/tmp/requirements
 
 RUN pip install -r /var/tmp/requirements/batch.txt
 
-# RUN pip install -r /var/tmp/requirements/web.txt
+ADD sample /var/tmp/sample

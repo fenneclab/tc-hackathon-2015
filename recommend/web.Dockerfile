@@ -5,7 +5,12 @@ deb http://jp.archive.ubuntu.com/ubuntu/ trusty-updates main restricted universe
 deb http://jp.archive.ubuntu.com/ubuntu/ trusty-backports main restricted universe multiverse \n\
 deb http://jp.archive.ubuntu.com/ubuntu/ trusty-security main restricted universe multiverse" > /etc/apt/sources.list
 
-RUN         apt-get update && apt-get install -y redis-server
-EXPOSE      6379
-ENTRYPOINT  ["/usr/bin/redis-server"]
+RUN apt-get update && apt-get install -y \
+    python-numpy \
+    python-pip \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/
 
+ADD requirements /var/tmp/requirements
+
+RUN pip install -r /var/tmp/requirements/web.txt
