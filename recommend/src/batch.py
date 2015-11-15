@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
 import json
-import pickle
 
 # 3rd party
 import redis
@@ -13,7 +12,7 @@ from models import User
 
 WORK_DIR = '/var/www'
 
-LSH_HASH_SIZE = 10   # ハッシュを何bitにするのか
+LSH_HASH_SIZE = 1   # ハッシュを何bitにするのか
 LSH_INPUT_DIM = 52  # 入力ベクトルの次元数
 LSH_NUM_HASHTABLES = 1  #
 LSH_STORAGE_CONF = {
@@ -36,33 +35,24 @@ def make_lsh_engine(dim):
     return lsh_engine
 
 
-def example_json_results():
-    f = open('example_personal_api_results.json', 'r')
-    results = f.read()
-    f.close()
-    return results
-
-
-def make_recommend_db(users_data):
+def make_lsh_model():
+    keys = user_db.keys('*')
     users = []
+    for id in keys:
+        print 'id'
+        user_json = user_db.get(id)
+        user = User(json.loads(user_json), id)
+        users.append(user)
 
-    for i, user_dict in enumerate(users_data):
-        print i
-        id = i + 1
-        print user_dict
-        print "*" * 40
-        u = User(user_dict, id)
-        users.append(u)
+    dim = users[0].vector_dim
+    lsh_engine = make_lsh_engine(dim)
 
+    print users
     for user in users:
-        # print user
-        recommend_db.set(user.id, user.json)
+        lsh_engine.index(user.vector, user.id)
 
+    return lsh_engine
 
 if __name__ == "__main__":
     recommend_db.flushall()
-
-    json_results = example_json_results()
-    results = json.loads(json_results)
-    users_data = results[u'results']
-    make_recommend_db(users_data)
+    make_lsh_model()
