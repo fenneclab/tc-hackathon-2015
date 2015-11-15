@@ -12,6 +12,8 @@
     "build:lib": "gulp lib",
     "build:images": "gulp images",
     "build": "npm-run-all -s clean -p build:*",
+    "lambda:build": "gulp build:lambda",
+    "deploy": "npm run build && aws s3 sync --acl public-read --delete build/ s3://colesuky/",
     "watch": "gulp watch",
     "watchify": "gulp watchify",
     "sync": "browser-sync start --reload-delay 500 --files 'build/**/*' --server build --port 5000",

@@ -5,22 +5,22 @@ const USERS = {
   '1': {
     name : 'さや',
     age  : 24,
-    image: 'https://s3-ap-northeast-1.amazonaws.com/tc-hackathon-2015-kari/1.jpg'
+    image: 'https://s3-ap-northeast-1.amazonaws.com/tc-hackathon-2015-kari/1.png'
   },
   '2': {
     name : 'しずか',
     age  : 21,
-    image: 'https://s3-ap-northeast-1.amazonaws.com/tc-hackathon-2015-kari/2.jpg'
+    image: 'https://s3-ap-northeast-1.amazonaws.com/tc-hackathon-2015-kari/2.png'
   },
   '3': {
     name : 'メロン',
     age  : 20,
-    image: 'https://s3-ap-northeast-1.amazonaws.com/tc-hackathon-2015-kari/3.jpg'
+    image: 'https://s3-ap-northeast-1.amazonaws.com/tc-hackathon-2015-kari/3.png'
   },
   '4': {
     name : 'みほ',
     age  : 22,
-    image: 'https://s3-ap-northeast-1.amazonaws.com/tc-hackathon-2015-kari/4.jpg'
+    image: 'https://s3-ap-northeast-1.amazonaws.com/tc-hackathon-2015-kari/4.png'
   }
 };
 
@@ -34,7 +34,7 @@ export default {
       json: true
     };
     return rq(options)
-    .then(result => {
+    .then(({result}) => {
       console.log(result);
       return _.sortByOrder(result.map(e => {
         const user = USERS[e.id];

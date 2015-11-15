@@ -2,7 +2,7 @@ import watson from 'watson-developer-cloud';
 import Promise from 'bluebird';
 import config from 'config';
 import _ from 'lodash';
-import dummy from './dummy';
+import dummy from './res';
 
 const personalityInsightsApi = watson.personality_insights(config.ibm.personalityInsights.credentials);
 
@@ -105,10 +105,17 @@ function parseResponse(response) {
     let o = {};
     o[e.name] = {
       percentage: e.percentage,
-      details   : _.chain(e.children).groupBy('name').mapValues('0').mapValues(e => {
-        return {
-          percentage: e.percentage
+      details   : _.chain(e.children).groupBy('name').mapValues('0').mapValues(f => {
+        let p = {};
+        p.percentage = f.percentage;
+        if (f.children) {
+          p.details = _.chain(f.children).groupBy('name').mapValues('0').mapValues(q => {
+            return {
+              percentage: q.percentage
+            };
+          }).value();
         }
+        return p;
       }).value()
     }
     return o;
@@ -118,17 +125,17 @@ function parseResponse(response) {
 
 export default {
   personalityInsights(text) {
-    // return Promise.resolve(dummy);
-    return new Promise((resolve, reject) => {
-      personalityInsightsApi.profile({
-        text,
-        url: config.ibm.personalityInsights.url
-      }, (err, result) => {
-        if (err) {
-          return reject(err);
-        }
-        return resolve(parseResponse(result));
-      });
-    });
+    return Promise.resolve(parseResponse(dummy));
+    // return new Promise((resolve, reject) => {
+    //   personalityInsightsApi.profile({
+    //     text,
+    //     url: config.ibm.personalityInsights.url
+    //   }, (err, result) => {
+    //     if (err) {
+    //       return reject(err);
+    //     }
+    //     return resolve(parseResponse(result));
+    //   });
+    // });
   }
 };
