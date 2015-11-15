@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
+import json
 import os
 
 from flask import Flask, jsonify, request
 from flask.ext.cors import CORS
+
+from query import query
 
 DEBUG = True
 PORT = 8080
@@ -33,14 +36,15 @@ def example_response():
 # index にアクセスしたときの処理
 @app.route('/recommend/v1/', methods=['GET'])
 def index():
-    user_json = request.args.get('user', '')
-    print user_json
+    user_json = request.args.get('user', None)
 
     return example_response()
 
-    # result = {'result': }
-    # return jsonify(result)
-    # return jsonify(response)
+    if user_json:
+        print user_json
+        result = query(json.loads(user_json))
+        response = {'result': result}
+        return jsonify(response)
 
 if __name__ == '__main__':
     app.debug = DEBUG

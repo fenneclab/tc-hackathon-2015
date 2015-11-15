@@ -1,32 +1,25 @@
 # -*- coding: utf-8 -*-
-import os
 import json
-import pickle
 
 # 3rd party
 from lshash import LSHash
-import redis
 
 #
+from db import recommend_db
 from models import User
 
 WORK_DIR = '/var/www'
-REDIS_HOST = os.environ.get('REDIS_PORT_6379_TCP_ADDR')
-REDIS_PORT = 6379
 
 LSH_HASH_SIZE = 10   # ハッシュを何bitにするのか
 LSH_INPUT_DIM = 52  # 入力ベクトルの次元数
 LSH_NUM_HASHTABLES = 100  #
-LSH_STORAGE_CONF = {
-    "redis": {
-        "host": REDIS_HOST,
-        "port": REDIS_PORT,
-        "db": 0,
-    }
-}
-
-
-db = redis.Redis(host=REDIS_HOST, port=REDIS_PORT,)
+# LSH_STORAGE_CONF = {
+#     "redis": {
+#         "host": REDIS_HOST,
+#         "port": REDIS_PORT,
+#         "db": 0,
+#     }
+# }
 
 
 def make_lsh_engine(dim):
@@ -41,11 +34,11 @@ def make_lsh_engine(dim):
 
 
 def make_lsh_model():
-    keys = db.keys('*')
+    keys = recommend_db.keys('*')
     users = []
     for id in keys:
         print id
-        user_json = db.get(id)
+        user_json = recommend_db.get(id)
         user = User(json.loads(user_json), id)
         users.append(user)
 
