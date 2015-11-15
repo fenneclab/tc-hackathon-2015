@@ -6,10 +6,22 @@ batch:
   volumes:
     - .:/var/www
   links:
-    - redis
-  environment:
-    - REDIS_HOST=redis
-    - REDIS_PORT=6379
+    - redis-recommend
+    - redis-user
 
-redis:
+web:
+  build: .
+  command: /bin/bash
+  dockerfile: web.Dockerfile
+  working_dir: /var/www
+  volumes:
+    - .:/var/www
+  links:
+    - redis-recommend
+    - redis-user
+
+redis-recommend:
+  image: redis
+
+redis-user:
   image: redis

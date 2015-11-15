@@ -13,6 +13,4 @@ RUN apt-get update && apt-get install -y \
 
 ADD requirements /var/tmp/requirements
 
-RUN pip install -r /var/tmp/requirements/batch.txt
-
-# RUN pip install -r /var/tmp/requirements/web.txt
+RUN pip install -r /var/tmp/requirements/web.txt

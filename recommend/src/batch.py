@@ -10,10 +10,16 @@ import redis
 from models import User
 
 WORK_DIR = '/var/www'
-REDIS_HOST = os.environ.get('REDIS_PORT_6379_TCP_ADDR')
-REDIS_PORT = 6379
+REDIS_RECOMMENTD_HOST = os.environ.get('REDIS_RECOMMENTD_PORT_6379_TCP_ADDR')
+REDIS_RECOMMENTD_PORT = 6379
 
-redis_db = redis.Redis(host=REDIS_HOST, port=REDIS_PORT,)
+REDIS_RECOMMENTD_HOST = os.environ.get('REDIS_USER_PORT_6379_TCP_ADDR')
+REDIS_RECOMMENTD_PORT = 6379
+
+recommend_db = redis.Redis(
+    host=REDIS_RECOMMENTD_HOST,
+    port=REDIS_RECOMMENTD_PORT,
+)
 
 
 def example_json_results():
@@ -23,7 +29,7 @@ def example_json_results():
     return results
 
 
-def make_redis_db(users_data):
+def make_recommend_db(users_data):
     users = []
 
     for i, user_dict in enumerate(users_data):
@@ -36,12 +42,12 @@ def make_redis_db(users_data):
 
     for user in users:
         # print user
-        redis_db.set(user.id, user.json)
+        recommend_db.set(user.id, user.json)
 
 
 if __name__ == "__main__":
-    redis_db.flushall()
+    recommend_db.flushall()
     json_results = example_json_results()
     results = json.loads(json_results)
     users_data = results[u'results']
-    make_redis_db(users_data)
+    make_recommend_db(users_data)
