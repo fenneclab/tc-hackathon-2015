@@ -218,8 +218,8 @@ $(function(){
   * (3)DOM Event
   */
   $(".js--submit").on("click", () => {
-    // app.model.login();
-    app.model.loginMock();
+    app.model.login();
+    // app.model.loginMock();
   });
 
   $(".js--btn--collection").on("click", (e) => {
