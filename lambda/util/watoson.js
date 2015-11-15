@@ -125,17 +125,17 @@ function parseResponse(response) {
 
 export default {
   personalityInsights(text) {
-    return Promise.resolve(parseResponse(dummy));
-    // return new Promise((resolve, reject) => {
-    //   personalityInsightsApi.profile({
-    //     text,
-    //     url: config.ibm.personalityInsights.url
-    //   }, (err, result) => {
-    //     if (err) {
-    //       return reject(err);
-    //     }
-    //     return resolve(parseResponse(result));
-    //   });
-    // });
+    // return Promise.resolve(parseResponse(dummy));
+    return new Promise((resolve, reject) => {
+      personalityInsightsApi.profile({
+        text,
+        url: config.ibm.personalityInsights.url
+      }, (err, result) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(parseResponse(result));
+      });
+    });
   }
 };
