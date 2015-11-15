@@ -19,6 +19,8 @@ web:
   links:
     - redis-recommend
     - redis-user
+  ports:
+    - "80:8080"
 
 redis-recommend:
   image: redis
